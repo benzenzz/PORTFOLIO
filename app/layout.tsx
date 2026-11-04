@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Chivo_Mono, Inter_Tight } from "next/font/google";
+import { Contact } from "@/components/contact";
+import { Nav } from "@/components/nav";
 import "./globals.css";
 
 const interTight = Inter_Tight({
@@ -41,7 +43,11 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${interTight.variable} ${chivoMono.variable}`}>
-      <body>{children}</body>
+      <body>
+        <Nav />
+        <main id="main">{children}</main>
+        <Contact />
+      </body>
     </html>
   );
 }
