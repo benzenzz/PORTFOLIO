@@ -33,7 +33,7 @@ Demi chọn [noartmusic.com](https://www.noartmusic.com/) làm reference sát ch
 | Nền | Video tràn màn hình, cao đúng một màn hình, cắt nhanh, có nhịp đen và nhịp màu | Vòng lặp 15 đến 20 giây dựng từ video của Demi, tránh giây 40 đến 56 của showreel |
 | Chính giữa | Logo viết tay, chữ đảo màu theo video (`mix-blend-mode: difference`) | Chữ ký "Demi Phan" cùng hiệu ứng |
 | Khung ngắm | 4 góc vuông nhỏ quanh logo, thêm dấu ở mép màn hình | Giữ nguyên, hợp với ý tưởng khung ngắm phòng dựng |
-| Trái dưới | Nhãn mono có ô vuông nhỏ và mô tả ngắn | `■ VIDEO EDITOR`, một câu giới thiệu, "open to remote internships" |
+| Trái dưới | Nhãn mono có ô vuông nhỏ và mô tả ngắn | `■ VIDEO EDITOR`, câu giới thiệu "I turn messages into rhythm, then use VFX and motion to push how far video can carry them.", "open to remote internships" |
 | Phải dưới | Thẻ thumbnail "Next up" | Thẻ thumbnail `PLAY SHOWREEL 01:29`, mở bản đầy đủ có tiếng |
 | Menu | Chữ mono nhỏ có ô vuông, hai hàng; mobile là nút `■ MENU` | Dùng kiểu này cho toàn site, thay kiểu ngoặc vuông |
 
@@ -53,7 +53,7 @@ Font thêm Chivo Mono (miễn phí) cho nhãn và menu, cùng họ font với re
 | 6 | Countdown 72H | `Vfx_motion/cd-end-2.mp4` | Motion | Video dọc |
 | 7 | Ngoc Ho Medicare | [Thiếu file] | Video Editor, remote | Ẩn cho tới khi có file và được phép đăng |
 
-Tên video ở trên là tên làm việc. Video ghép footage phim hiển thị ghi chú nguồn footage và không xếp đầu.
+Mỗi thẻ có nhãn kỹ năng `Editing`, `VFX`, `Motion` để người xem thấy bằng chứng cho từng kỹ năng. Tên video ở trên là tên làm việc. Video ghép footage phim hiển thị ghi chú nguồn footage và không xếp đầu.
 
 ## Case study Marketing Arena 2026
 
