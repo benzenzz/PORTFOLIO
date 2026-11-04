@@ -88,7 +88,7 @@ Việc cần chuẩn bị: nén `Hero Highlights.mpeg` (336 MB) và `Portrait.pn
 3. **Định vị:** đã chốt là Video Editor, nhắm vị trí intern remote cho creative agency nước ngoài.
 4. **Vai trò trong MA26:** đã chốt. Toàn bộ video do Demi làm. Post: Demi tự làm 50%, làm director 50%. Chưa rõ từng post thuộc nhóm nào, và 4 KV có tính như post không. Piti là nghệ danh cũ, không dùng trên web.
 5. **Website:** đã chốt. Demi vừa thiết kế vừa quản lý `marketingarena.vn`.
-6. **Quyền hình ảnh:** logo giữ nguyên. Tạm ẩn 4 post có ảnh thí sinh (Champion, 1st Runner-Up, 2 bài 2nd Runner-Up). Một video ghép footage phim: đề xuất vẫn dùng, ghi rõ footage không thuộc về Demi, không đặt đầu tiên. Trong `Hero Highlights.mpeg`, footage phim nằm từ giây 40 đến giây 56: đoạn hero chạy tự động không lấy từ khoảng này, bản đầy đủ có dòng ghi chú nguồn footage. Video Gala Night và Top 4 giữ lại. Chờ xác nhận: post mentor và giám khảo thì sao.
-7. **Số điện thoại:** có đưa lên web không? Đề xuất chỉ dùng email và LinkedIn.
+6. **Quyền hình ảnh:** logo giữ nguyên. Tạm ẩn 4 post có ảnh thí sinh (Champion, 1st Runner-Up, 2 bài 2nd Runner-Up). Một video ghép footage phim: đề xuất vẫn dùng, ghi rõ footage không thuộc về Demi, không đặt đầu tiên. Trong `Hero Highlights.mpeg`, footage phim nằm từ giây 40 đến giây 56: đoạn hero chạy tự động không lấy từ khoảng này, bản đầy đủ có dòng ghi chú nguồn footage. Video Gala Night, Top 4, post mentor và giám khảo giữ lại.
+7. **Số điện thoại:** theo đề xuất, không đưa lên web, chỉ dùng email và LinkedIn.
 8. **Tài sản còn thiếu:** có file cho TVC TVCreate, Tết hay MA 2025 không? Quan trọng nhất là mẫu video Ngoc Ho Medicare, và có được phép đăng không?
-9. **Hướng "Cut":** đồng ý hay muốn đổi?
+9. **Hướng "Cut":** theo đề xuất, dùng bản nền sáng theo reference chính.
