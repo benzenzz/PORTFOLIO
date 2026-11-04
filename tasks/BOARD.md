@@ -10,7 +10,7 @@ Trạng thái: `TODO`, `DOING`, `REVIEW`, `BLOCKED`, `DONE`. Luật xem `PIPELIN
 | T-04 | 3 | Wireframe trên Figma | Claude | Figma | Đủ các trang trong plan | DONE | Demi chuyển sang dev |
 | T-05 | 4 | Design draft và design spec | Claude, Demi | Figma, `docs/03-design-spec.md` | Demi duyệt | DONE | Thay bằng `docs/03-design-spec.md`, không làm design draft riêng |
 | T-06 | 5 | Tạo project Next.js, TypeScript, Tailwind 4; cài `gsap`, `@gsap/react`, `lenis`; token, font, layout gốc | Sixth | Gốc project, `app/layout.tsx`, `app/globals.css` | `npm run build` và `lint` qua; giữ nguyên `docs`, `design`, `public/media` | REVIEW | Next 16.4.5, React 19.3.1, Tailwind 4.3.4, GSAP 3.15.1, Lenis 1.3.27. Build + lint qua. Font Inter Tight / Chivo Mono qua `next/font`, token trong `app/globals.css`. `app/page.tsx` tạm là placeholder, thay ở T-10 |
-| T-07 | 6 | Dữ liệu `content/projects.ts`, `content/playground.ts` | Sixth | `content/` | Đủ dự án trong plan, Medicare `hidden` | TODO | |
+| T-07 | 6 | Dữ liệu `content/projects.ts`, `content/playground.ts` | Sixth | `content/` | Đủ dự án trong plan, Medicare `hidden` | REVIEW | Claude làm thay Sixth. Có đủ dự án trong plan, Medicare và Seasonal `hidden`. Năm của Daily series và các ô ngoặc vuông chờ Demi |
 | T-08 | 6 | Thanh menu và Contact | Sixth | `components/nav*`, `components/contact*` | Đúng wireframe, dùng được bằng bàn phím | TODO | |
 | T-09 | 6 | Hero và dialog showreel | Sixth | `components/hero*` | Đúng spec, cả desktop và mobile | TODO | |
 | T-10 | 6 | Selected Work bản tĩnh: 3 tab, list, video xem trước | Sixth | `components/work*`, `app/page.tsx` | Tab dùng được bằng phím, chưa cần lặp | TODO | |
