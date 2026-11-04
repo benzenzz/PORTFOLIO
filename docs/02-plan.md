@@ -54,8 +54,6 @@ Nhóm là nơi dự án thuộc về, tag là chất liệu. Vai trò hiện nga
 
 | Tác phẩm | Sự kiện (bộ lọc) | Tag | Vai trò | File |
 |---|---|---|---|---|
-| Gala Night Film | Marketing Arena 2026 | Video | Video Editor | `MARKETING ARENA 2026/Video editor/gala-night...mp4` |
-| Time Pressure Teaser | Marketing Arena 2026 | Video | Video Editor | `MARKETING ARENA 2026/Video editor/quy-thoi-gian...mp4` |
 | Top 4 Reveal Film (Top 4 Announcement) | Marketing Arena 2026 | Video | Director & Video Editor | `Videos/Marketing Arena/Top 4 Announcement.mp4` |
 | Nguyen Hue OOH Spot (OOH) | Marketing Arena 2026 | VFX, Motion | VFX & Motion Artist | `.../animation/ma26-ooh-pho-di-bo.mp4` |
 | Registration Countdown (Countdown) | Marketing Arena 2026 | Motion | Motion Designer | `.../animation/cd-end-2.mp4` |
@@ -63,7 +61,6 @@ Nhóm là nơi dự án thuộc về, tag là chất liệu. Vai trò hiện nga
 | Campaign Social Assets (Social posts) | Marketing Arena 2026 | Design | Art Director & Designer | `.../design/post-nhat/MA26`, 16 file, ẩn 4 post có thí sinh |
 | VFX Teaser (VFX Teasers) | Marketing Arena 2025 | VFX, Motion | VFX & Motion Artist | `Videos/Marketing Arena/Teaser-Ma25.mp4` |
 | Official Cinematic Trailer | Marketing Arena 2025 | Video | Video Editor | `Videos/Marketing Arena/Official Cinematic Trailer.mp4` |
-| Spycom Teaser (First Event) | First Event 2025 | Video | Filmer & Video Editor | `FIRST EVENT 2025/first-event-2025...mp4` |
 
 "Main executive" trong file gốc được đổi thành chức danh quen thuộc với agency nước ngoài (VFX & Motion Artist, Motion Designer). Video ghép footage phim hiển thị ghi chú nguồn footage và không xếp đầu.
 
@@ -92,7 +89,7 @@ Video luôn lên đầu. Recruiter xem 10 đến 20 giây video trước khi đ�
 | Cấp | Nội dung | Dự án |
 |---|---|---|
 | A: Flagship | Video, At a glance, Brief, 2 đến 4 quyết định sáng tạo, Process, Deliverables, Result, What I learned | Marketing Arena 2026 |
-| B: Project | Video, At a glance, 2 đến 3 câu bối cảnh và vai trò, 2 đến 3 video khác, một dòng đã học | Marketing Arena 2025, First Event 2025, Ngoc Ho Medicare |
+| B: Project | Video, At a glance, 2 đến 3 câu bối cảnh và vai trò, 2 đến 3 video khác, một dòng đã học | Marketing Arena 2025, Ngoc Ho Medicare |
 | C: Snapshot | Video, At a glance, 1 câu | Animated Invitations, Daily Social Content Series |
 
 Một dòng "First time I..." hoặc "What I'd do differently" trong case study là bằng chứng tự học tốt nhất, không cần tự khen.
