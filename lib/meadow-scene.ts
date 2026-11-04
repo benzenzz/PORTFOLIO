@@ -10,6 +10,7 @@ import {
   InstancedBufferAttribute,
   InstancedBufferGeometry,
   LinearSRGBColorSpace,
+  MathUtils,
   Mesh,
   OrthographicCamera,
   PerspectiveCamera,
@@ -30,8 +31,8 @@ ColorManagement.enabled = false;
 export type Quality = "high" | "low";
 
 const COUNTS = {
-  high: { grass: 42000, tall: 900, cubes: 15000, stars: 1800, embers: 150, smoke: 320, dpr: 1.75 },
-  low: { grass: 12000, tall: 320, cubes: 6000, stars: 700, embers: 60, smoke: 160, dpr: 1 },
+  high: { grass: 42000, tall: 900, cubes: 15000, stars: 2600, embers: 150, smoke: 320, dpr: 1.75 },
+  low: { grass: 12000, tall: 320, cubes: 6000, stars: 1000, embers: 60, smoke: 160, dpr: 1 },
 };
 
 const COLOR = {
@@ -46,6 +47,15 @@ const COLOR = {
 const LETTERS = ["D", "E", "M", "I"];
 const LETTER_HEIGHT = 2.5;
 const LETTER_ANCHOR = new Vector3(0, 2.75, -6);
+const CAMERA_TARGET = new Vector3(0, 2.16, -6);
+
+/** Góc máy cho từng chữ: góc quay quanh chữ, khoảng cách, độ cao, độ nghiêng. */
+const SHOTS = [
+  { angle: 0, radius: 6, height: 0.95, roll: 0 },
+  { angle: 0.74, radius: 6.2, height: 1.5, roll: 0.05 },
+  { angle: -0.64, radius: 5.8, height: 1, roll: -0.06 },
+  { angle: 0.32, radius: 6.6, height: 2.1, roll: 0 },
+];
 
 export function autoQuality(): Quality {
   const nav = navigator as Navigator & { deviceMemory?: number };
@@ -87,7 +97,7 @@ function sampleLetter(letter: string, count: number, rand: () => number) {
     const stray = rand() < 0.07 ? 0.5 : 0;
     out[i * 3] = ((pixel % size) - size / 2) * scale + (rand() - 0.5) * stray;
     out[i * 3 + 1] = (size / 2 - Math.floor(pixel / size)) * scale + (rand() - 0.5) * stray;
-    out[i * 3 + 2] = (rand() - 0.5) * 0.42 + (rand() - 0.5) * stray;
+    out[i * 3 + 2] = (rand() - 0.5) * 0.8 + (rand() - 0.5) * stray;
   }
   return out;
 }
@@ -191,38 +201,38 @@ function createGrass(q: Quality, rand: () => number) {
     index.push(a, a + 1, a + 2, a + 1, a + 3, a + 2);
   }
 
-  const geometry = new InstancedBufferGeometry();
-  geometry.setAttribute("position", new BufferAttribute(new Float32Array(vertices), 3));
-  geometry.setIndex(index);
-
-  const total = grass + tall;
-  const offset = new Float32Array(total * 3);
-  const shape = new Float32Array(total * 3);
-  const seed = new Float32Array(total);
-  for (let i = 0; i < total; i++) {
-    let x: number, z: number, height: number, width: number;
-    if (i < grass) {
-      z = -0.8 - Math.pow(rand(), 1.7) * 62;
-      x = (rand() - 0.5) * (9 + Math.abs(z) * 2.6);
-      const open = Math.abs(x) < 1.1 && z > -5 ? 0.45 : 1; // Giữ trống giữa khung hình.
-      height = (0.42 + rand() * 0.5) * open * (1 + Math.abs(z) * 0.012);
-      width = (0.03 + rand() * 0.025) * (1 + Math.abs(z) * 0.09);
-    } else {
-      // Cỏ cao hai bên khung hình, tối như bóng đen.
-      const side = rand() < 0.5 ? -1 : 1;
-      z = -1.6 - rand() * 2.2;
-      x = side * (1.25 + Math.pow(rand(), 0.7) * 2.3);
-      height = 1 + rand() * 1.15;
-      width = 0.026 + rand() * 0.026;
+  const build = (count: number, place: () => number[]) => {
+    const geometry = new InstancedBufferGeometry();
+    geometry.setAttribute("position", new BufferAttribute(new Float32Array(vertices), 3));
+    geometry.setIndex(index);
+    const offset = new Float32Array(count * 3);
+    const shape = new Float32Array(count * 3);
+    const seed = new Float32Array(count);
+    for (let i = 0; i < count; i++) {
+      const [x, z, height, width] = place();
+      offset.set([x, z, rand() * Math.PI], i * 3);
+      shape.set([height, width, (rand() - 0.5) * 0.7], i * 3);
+      seed[i] = rand();
     }
-    offset.set([x, z, rand() * Math.PI], i * 3);
-    shape.set([height, width, (rand() - 0.5) * 0.7], i * 3);
-    seed[i] = rand();
-  }
-  geometry.setAttribute("aOffset", new InstancedBufferAttribute(offset, 3));
-  geometry.setAttribute("aShape", new InstancedBufferAttribute(shape, 3));
-  geometry.setAttribute("aSeed", new InstancedBufferAttribute(seed, 1));
-  geometry.instanceCount = total;
+    geometry.setAttribute("aOffset", new InstancedBufferAttribute(offset, 3));
+    geometry.setAttribute("aShape", new InstancedBufferAttribute(shape, 3));
+    geometry.setAttribute("aSeed", new InstancedBufferAttribute(seed, 1));
+    geometry.instanceCount = count;
+    return geometry;
+  };
+
+  const fieldGeometry = build(grass, () => {
+    const z = 1 - Math.pow(rand(), 1.7) * 64;
+    const x = (rand() - 0.5) * (14 + Math.abs(z) * 2.8);
+    const height = (0.42 + rand() * 0.5) * (1 + Math.abs(z) * 0.012);
+    return [x, z, height, (0.03 + rand() * 0.025) * (1 + Math.abs(z) * 0.09)];
+  });
+  // Cỏ tiền cảnh tính theo vị trí camera, thấp hơn đường chân trời để không chắn chữ.
+  const nearGeometry = build(tall, () => {
+    const side = rand() < 0.5 ? -1 : 1;
+    const x = side * (1.5 + Math.pow(rand(), 0.7) * 2.2);
+    return [x, -1.7 - rand() * 2, 0.85 + rand() * 0.55, 0.026 + rand() * 0.026];
+  });
 
   const material = new ShaderMaterial({
     side: DoubleSide,
@@ -269,9 +279,10 @@ function createGrass(q: Quality, rand: () => number) {
         gl_FragColor=vec4(c,1.);
       }`,
   });
-  const mesh = new Mesh(geometry, material);
-  mesh.frustumCulled = false;
-  return { mesh, material };
+  const mesh = new Mesh(fieldGeometry, material);
+  const near = new Mesh(nearGeometry, material);
+  mesh.frustumCulled = near.frustumCulled = false;
+  return { mesh, near, material };
 }
 
 /** Khối cube biến thành D, E, M, I. uMorph chạy từ 0 đến 3. */
@@ -297,6 +308,7 @@ function createLetters(q: Quality, rand: () => number) {
       uMorph: { value: 0 },
       uPointer: { value: new Vector3() },
       uPointerOn: { value: 0 },
+      uSmoke: { value: null },
       uDark: { value: COLOR.plum },
       uLight: { value: COLOR.horizon },
       uWhite: { value: COLOR.mist },
@@ -307,6 +319,7 @@ function createLetters(q: Quality, rand: () => number) {
       attribute vec4 aRnd;
       uniform float uTime,uMorph,uPointerOn;
       uniform vec3 uPointer;
+      uniform sampler2D uSmoke;
       varying float vHeat,vShade,vRnd;
       vec3 spin(vec3 v,vec3 k,float a){float c=cos(a),s=sin(a);return v*c+cross(k,v)*s+k*dot(k,v)*(1.-c);}
       void main(){
@@ -324,6 +337,12 @@ function createLetters(q: Quality, rand: () => number) {
         c.xy+=normalize(away+1e-4)*k*.62;
         c.z+=(aRnd.w-.5)*k*1.1;
         vHeat=exp(-r2/.55)*uPointerOn;
+
+        // Vệt chuột đi qua đâu thì cube ở đó văng ra, rồi tự về chỗ khi vệt tan.
+        vec4 clip=projectionMatrix*modelViewMatrix*vec4(c,1.);
+        float trail=texture2D(uSmoke,clip.xy/clip.w*.5+.5).r;
+        c+=(aRnd.yzw-.5)*trail*1.6;
+        vHeat=max(vHeat,trail*.9);
 
         vec3 axis=normalize(aRnd.xyz-.5+1e-3);
         float angle=uTime*(.2+aRnd.w*.5)+aRnd.y*6.28+k*3.;
@@ -363,7 +382,7 @@ function pointsGeometry(count: number, fill: (i: number, p: Float32Array, s: Flo
 
 function createStars(q: Quality, rand: () => number, dpr: number) {
   const geometry = pointsGeometry(COUNTS[q].stars, (i, p, s) => {
-    const az = (rand() - 0.5) * 2.6;
+    const az = (rand() - 0.5) * 4;
     const el = 0.09 + Math.pow(rand(), 0.7) * 1.05;
     p.set([Math.sin(az) * Math.cos(el) * 120, Math.sin(el) * 120, -Math.cos(az) * Math.cos(el) * 120], i * 3);
     s.set([rand(), rand()], i * 2);
@@ -527,9 +546,12 @@ function createSmoke(q: Quality, aspect: number) {
   };
 }
 
-function worldOnPlane(camera: Camera, ndc: Vector2, z: number, out: Vector3) {
-  out.set(ndc.x, ndc.y, 0.5).unproject(camera).sub(camera.position);
-  return out.multiplyScalar((z - camera.position.z) / out.z).add(camera.position);
+/** Điểm chuột chiếu lên mặt phẳng chữ, tính trong hệ tọa độ của chữ. */
+function pointerOnLetter(camera: Camera, ndc: Vector2, letter: Mesh, out: Vector3, origin: Vector3) {
+  letter.worldToLocal(out.set(ndc.x, ndc.y, 0.5).unproject(camera));
+  letter.worldToLocal(origin.copy(camera.position));
+  out.sub(origin);
+  return out.multiplyScalar(-origin.z / out.z).add(origin);
 }
 
 export function createMeadow(canvas: HTMLCanvasElement, quality: Quality, animate: boolean) {
@@ -541,10 +563,6 @@ export function createMeadow(canvas: HTMLCanvasElement, quality: Quality, animat
   const rand = seeded(26);
   const scene = new Scene();
   const camera = new PerspectiveCamera(46, 1, 0.1, 400);
-  const BASE_PITCH = 0.2;
-  camera.position.set(0, 0.95, 0);
-  camera.rotation.order = "YXZ";
-  camera.rotation.x = BASE_PITCH;
 
   const sky = createSky();
   const ground = createGround();
@@ -553,7 +571,7 @@ export function createMeadow(canvas: HTMLCanvasElement, quality: Quality, animat
   const stars = createStars(quality, rand, dpr);
   const embers = createEmbers(quality, rand, dpr);
   const smoke = createSmoke(quality, canvas.clientWidth / Math.max(canvas.clientHeight, 1));
-  scene.add(sky.mesh, ground.mesh, grass.mesh, letters.mesh, stars.points, embers.points, smoke.mesh);
+  scene.add(sky.mesh, ground.mesh, grass.mesh, grass.near, letters.mesh, stars.points, embers.points, smoke.mesh);
 
   sky.material.uniforms.uInvProj.value = camera.projectionMatrixInverse;
   sky.material.uniforms.uCamWorld.value = camera.matrixWorld;
@@ -561,6 +579,31 @@ export function createMeadow(canvas: HTMLCanvasElement, quality: Quality, animat
   const timed = [sky.material, grass.material, letters.material, stars.material, embers.material, smoke.feedback];
   const pointer = { target: new Vector2(), smooth: new Vector2(), prevUv: new Vector2(), uv: new Vector2(), on: 0, onTarget: 0 };
   const world = new Vector3();
+  const origin = new Vector3();
+  const shot = { ...SHOTS[0] };
+  let morph = 0;
+
+  function moveCamera(delta: number) {
+    const from = Math.min(Math.floor(morph), SHOTS.length - 2);
+    const blend = morph - from;
+    const follow = animate ? 1 - Math.exp(-delta * 4) : 1;
+    for (const key of ["angle", "radius", "height", "roll"] as const) {
+      shot[key] += (MathUtils.lerp(SHOTS[from][key], SHOTS[from + 1][key], blend) - shot[key]) * follow;
+    }
+    camera.position.set(
+      CAMERA_TARGET.x + Math.sin(shot.angle) * shot.radius,
+      shot.height,
+      CAMERA_TARGET.z + Math.cos(shot.angle) * shot.radius,
+    );
+    camera.lookAt(CAMERA_TARGET);
+    camera.rotateZ(shot.roll);
+    camera.rotateY(-pointer.smooth.x * 0.035);
+    camera.rotateX(pointer.smooth.y * 0.018);
+    camera.updateMatrixWorld();
+
+    grass.near.position.set(camera.position.x, 0, camera.position.z);
+    grass.near.rotation.y = shot.angle;
+  }
 
   function resize() {
     const width = canvas.clientWidth;
@@ -601,14 +644,12 @@ export function createMeadow(canvas: HTMLCanvasElement, quality: Quality, animat
     pointer.smooth.lerp(pointer.target, ease);
     pointer.on += (pointer.onTarget - pointer.on) * ease;
 
-    camera.rotation.y = -pointer.smooth.x * 0.035;
-    camera.rotation.x = BASE_PITCH + pointer.smooth.y * 0.018;
-    camera.updateMatrixWorld();
+    moveCamera(delta);
 
-    letters.mesh.rotation.y = Math.sin(now * 0.22) * 0.1 + pointer.smooth.x * 0.14;
+    // Chữ quay theo một phần để vẫn đọc được ở mọi góc máy.
+    letters.mesh.rotation.y = shot.angle * 0.6 + Math.sin(now * 0.22) * 0.08 + pointer.smooth.x * 0.12;
     letters.mesh.updateMatrixWorld();
-    worldOnPlane(camera, pointer.smooth, LETTER_ANCHOR.z, world);
-    letters.material.uniforms.uPointer.value.copy(letters.mesh.worldToLocal(world));
+    letters.material.uniforms.uPointer.value.copy(pointerOnLetter(camera, pointer.smooth, letters.mesh, world, origin));
     letters.material.uniforms.uPointerOn.value = pointer.on;
 
     if (now > nextMeteor) {
@@ -629,6 +670,7 @@ export function createMeadow(canvas: HTMLCanvasElement, quality: Quality, animat
     f.uStrength.value = Math.min(moved * 45, 0.75) * pointer.on;
     f.uDecay.value = Math.pow(0.968, delta * 60);
     smoke.step(renderer);
+    letters.material.uniforms.uSmoke.value = smoke.overlay.uniforms.uSmoke.value;
 
     renderer.render(scene, camera);
   }
@@ -674,7 +716,10 @@ export function createMeadow(canvas: HTMLCanvasElement, quality: Quality, animat
   return {
     /** 0 là D, 1 là E, 2 là M, 3 là I. */
     setMorph(value: number) {
-      letters.material.uniforms.uMorph.value = value;
+      const stop = Math.floor(value);
+      // Dừng lại ở mỗi chữ một đoạn, reduced motion thì đổi thẳng không bay.
+      morph = animate ? stop + MathUtils.smoothstep(value - stop, 0.2, 0.8) : Math.round(value);
+      letters.material.uniforms.uMorph.value = morph;
       if (!animate) tick(4, 0.016);
     },
     dispose() {
