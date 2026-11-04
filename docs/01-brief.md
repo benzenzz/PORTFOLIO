@@ -43,14 +43,30 @@ Bằng chứng trong CV:
 | `Change.mp4` | Mảng hình học làm mask mở ra cảnh quay, rất hợp với dân video | Thời lượng dài |
 | `Which loading animation...mp4` | Loader là bộ thẻ tác phẩm xoay thành vòng cung | Loader dài chặn nội dung, trái `CLAUDE.md` |
 
+## 3b. Reference chính: Production Portugal
+
+Demi chọn [productionportugal.com/work](https://productionportugal.com/work) làm reference chính. Khi có mâu thuẫn, reference này quyết định cấu trúc và motion, moodboard quyết định chất hình ảnh. Chỉ học nguyên tắc, không sao chép giao diện.
+
+Quan sát trên trang (GSAP, Lenis, 24 video, chữ Neue Haas Grotesk):
+
+- **Trang Work:** nền trắng, tiêu đề "OUR WORK" lớn, mọi thứ còn lại nhỏ. Tác phẩm chiếm gần hết màn hình.
+- **Hai chế độ xem:** Gallery View (lưới hai cột) và Full-Screen (một cột lớn), có nút chuyển.
+- **Thumbnail là video chạy sẵn**, không phải ảnh tĩnh. Tên dự án đặt đè lên hình và tự đảo màu theo nền, logo cũng vậy.
+- **Motion khi cuộn:** khung hình nghiêng theo tốc độ cuộn rồi trở về thẳng, chế độ Full-Screen có thêm tách màu RGB nhẹ.
+- **Trang xem dự án:** video tràn màn hình, timecode ở trái, dải tên dự án dưới đáy để chuyển qua lại.
+- **Menu:** chữ nhỏ trong ngoặc vuông, ví dụ `[ WORK ]`, rõ ràng và dễ đoán.
+
+Điều cần làm khác: thẻ dự án nên là link thật để dùng được bằng bàn phím, có poster tĩnh để tải nhanh, và tắt nghiêng cùng tách màu khi reduced-motion. Trên điện thoại giả lập, trang vẫn trắng sau 4 giây, nên portfolio cần hiện nội dung sớm hơn. Neue Haas Grotesk là font trả phí, cần chọn font thay thế ở T-03.
+
 ## 4. Hướng đề xuất
 
-**Ý tưởng: "Cut" — website như phòng dựng.** Khung giao diện đen trắng, im lặng như một timeline, để tác phẩm là nguồn màu duy nhất.
+**Ý tưởng: "Cut" — website như phòng dựng.** Trang Work nền giấy sáng, im lặng, để video là nguồn màu chính. Khi xem dự án, trang chuyển sang đen như phòng chiếu.
 
 - **Màu đỏ là cây cầu.** Moodboard và MA26 cùng dùng đỏ, nên đỏ `#FF343B` nối giao diện với tác phẩm một cách tự nhiên.
-- **Không phủ hiệu ứng lên tác phẩm.** KV MA26 rất rực và nhiều chi tiết. Đặt chúng trên nền đen trơn, không grain hay grayscale, để sự tương phản với giao diện tự tạo điểm nhấn.
-- **Grain và nhòe chỉ dùng ở chân dung và ảnh chuyển trang.** `Portrait.png` đen trắng, ánh sáng gắt, đã rất khớp moodboard.
-- **Motion đặc trưng:** cắt và mask hình học lấy từ `Change.mp4`; danh sách dự án kiểu Casey; metadata như thông số timeline (timecode, vai trò, năm).
+- **Không phủ hiệu ứng tĩnh lên tác phẩm.** KV MA26 rất rực và nhiều chi tiết, nền sáng sẽ làm chúng nổi bật. Hiệu ứng chỉ xuất hiện khi đang cuộn rồi trả lại hình sạch.
+- **Chất moodboard nằm ở các điểm chọn lọc:** chân dung đen trắng, trang About và Contact nền đen, grain ở khoảnh khắc chuyển trang. `Portrait.png` đã rất khớp moodboard.
+- **Motion đặc trưng:** nghiêng theo tốc độ cuộn, tách màu nhẹ, mask hình học lấy từ `Change.mp4` khi chuyển trang.
+- **Metadata như phòng dựng:** timecode, vai trò, năm đặt cạnh mỗi tác phẩm. Riêng chi tiết vai trò là thứ Production Portugal không có mà portfolio cá nhân cần.
 - **Kể bằng video.** Hero là showreel cắt ngắn, chạy không tiếng, có nút bật tiếng rõ ràng.
 
 Việc cần chuẩn bị: nén `Hero Highlights.mpeg` (336 MB) và `Portrait.png` (17 MB). `ffmpeg` đã có sẵn trên máy.
