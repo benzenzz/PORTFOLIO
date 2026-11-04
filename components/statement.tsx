@@ -14,6 +14,7 @@ const CHECKER = [
   "md:col-start-3 md:row-start-3",
   "md:col-start-5 md:row-start-3",
 ];
+const MARKS: Record<string, string> = { italic: "text-red italic", code: "font-mono text-red" };
 const NAV_LINE = 48; // px, giữa thanh menu, nơi menu đổi màu khi đi vào nền đỏ.
 const PIN_LENGTH = 1.3; // Quãng ghim, tính theo số lần chiều cao màn hình.
 const PIXELS_FROM = 0.45; // Phần đầu quãng ghim để đọc chữ, sau đó khối pixel mới chạy.
@@ -118,7 +119,7 @@ export function Statement() {
         lines.forEach((line, index) => {
           decode.to(
             line,
-            { duration: 0.9, ease: "none", scrambleText: { text: texts[index], chars: "upperCase", speed: 0.7 } },
+            { duration: 0.9, ease: "none", scrambleText: { text: texts[index], chars: "upperAndLowerCase", speed: 0.7 } },
             index * 0.12,
           );
         });
@@ -174,8 +175,12 @@ export function Statement() {
       </svg>
 
       <div className="statement-front shell py-[clamp(6rem,16vw,12rem)]">
-        <h2 ref={title} id="statement-title" className="max-w-[16em] text-[clamp(2.25rem,6.2vw,6rem)] uppercase">
-          {statement.title}
+        <h2 ref={title} id="statement-title" className="max-w-[24em] text-[clamp(1.75rem,3.8vw,3.75rem)] leading-[1.08]">
+          {statement.title.map(({ text, mark }) => (
+            <span key={text} className={MARKS[mark ?? ""]}>
+              {text}
+            </span>
+          ))}
         </h2>
         <p className="statement-note mt-6 max-w-xl text-fg-muted md:mt-10">{about.statement}</p>
       </div>

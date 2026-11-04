@@ -20,7 +20,13 @@ export const hero = {
 };
 
 export const statement = {
-  title: "I'm a creative video editor with 2 years of experience.",
+  title: [
+    { text: "I'm a creative video editor, 2 years in, working where " },
+    { text: "rhythm", mark: "italic" },
+    { text: " meets " },
+    { text: "<code/>", mark: "code" },
+    { text: ". I learn past what I thought I could do, then break each task down until the fastest route is clear." },
+  ],
   highlights: [
     { value: "2", label: "Years of experience" },
     { value: "<>", label: "HTML", tool: true },
