@@ -4,7 +4,7 @@ Trạng thái: `TODO`, `DOING`, `REVIEW`, `BLOCKED`, `DONE`. Luật xem `PIPELIN
 
 | ID | Bước | Việc | Người làm | Phạm vi file | Xong khi | Trạng thái | Ghi chú |
 |---|---|---|---|---|---|---|---|
-| T-01 | 0 | Kiểm kê toàn bộ tài sản dự án | Claude | `content-raw/INVENTORY.md` | Mỗi dự án có danh sách ảnh, video, tài liệu | TODO | |
+| T-01 | 0 | Kiểm kê toàn bộ tài sản dự án | Claude | `content-raw/INVENTORY.md` | Mỗi dự án có danh sách ảnh, video, tài liệu | DONE | Chưa mở nội dung file |
 | T-02 | 1 | Phân tích moodboard, reference, CV | Claude | `docs/01-brief.md` | Demi xác nhận thông tin | TODO | |
 | T-03 | 2 | Lập sitemap, nội dung, chọn stack | Claude | `docs/02-plan.md` | Demi duyệt | TODO | |
 | T-04 | 3 | Wireframe trên Figma | Claude | Figma | Đủ các trang trong plan | TODO | |
