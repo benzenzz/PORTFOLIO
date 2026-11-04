@@ -10,3 +10,6 @@ MARKETING ARENA 2026/
 *.docx
 *.mpeg
 Portrait.png
+
+# Media đã nén, chọn nơi lưu khi deploy
+public/media/

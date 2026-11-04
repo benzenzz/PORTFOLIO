@@ -45,5 +45,5 @@ Bước 7 tách khỏi bước 6 để giao diện vẫn hoàn chỉnh khi khôn
 Tài khoản đang dùng gói Starter, nên Figma MCP chỉ có khoảng 6 lượt đọc mỗi tháng. Các lệnh ghi vào Figma không bị tính theo tài liệu của Figma. Vì vậy:
 
 - Chỉ Claude dùng Figma MCP. Sixth không cần kết nối Figma.
-- Sau khi chốt thiết kế, Demi export PNG các frame vào `design/frames/`. Agent đọc ảnh và `docs/03-design-spec.md` thay vì đọc Figma.
+- Sau khi chốt thiết kế, Demi export PNG các frame vào `design/wireframes/`. Agent đọc ảnh và `docs/03-design-spec.md` thay vì đọc Figma.
 - Lượt đọc Figma chỉ để dành cho các frame đã chốt.
