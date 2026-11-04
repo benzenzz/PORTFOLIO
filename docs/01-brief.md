@@ -87,7 +87,7 @@ Việc cần chuẩn bị: nén `Hero Highlights.mpeg` (336 MB) và `Portrait.pn
 2. **Email liên hệ:** đã chốt là `trangbr2006@gmail.com`.
 3. **Định vị:** đã chốt là Video Editor, nhắm vị trí intern remote cho creative agency nước ngoài.
 4. **Vai trò trong MA26:** đã chốt. Toàn bộ video do Demi làm. Post: Demi tự làm 50%, làm director 50%. Chưa rõ từng post thuộc nhóm nào, và 4 KV có tính như post không. Piti là nghệ danh cũ, không dùng trên web.
-5. **Website:** file `link WEBSITE.docx` ghi thiết kế và phát triển `marketingarena.vn`, còn CV ghi quản lý WordPress và tùy chỉnh HTML/CSS. Nên dùng cách nói nào?
+5. **Website:** đã chốt. Demi vừa thiết kế vừa quản lý `marketingarena.vn`.
 6. **Quyền hình ảnh:** showreel có các cảnh giống phim hoặc footage bên ngoài không? Có được đăng ảnh thí sinh, mentor và logo nhà tài trợ không?
 7. **Số điện thoại:** có đưa lên web không? Đề xuất chỉ dùng email và LinkedIn.
 8. **Tài sản còn thiếu:** có file cho TVC TVCreate, Tết hay MA 2025 không? Quan trọng nhất là mẫu video Ngoc Ho Medicare, và có được phép đăng không?
