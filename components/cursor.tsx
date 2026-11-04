@@ -57,6 +57,7 @@ export function Cursor() {
       const element = target instanceof Element ? target : null;
       cursor.classList.toggle("is-interactive", Boolean(element?.closest(INTERACTIVE)));
       cursor.classList.toggle("is-suppressed", Boolean(element?.closest(SUPPRESSED)));
+      cursor.classList.toggle("is-on-red", Boolean(element?.closest(".surface-red")));
       setLabel(element?.closest("[data-cursor]")?.getAttribute("data-cursor") ?? "");
     };
 

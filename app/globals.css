@@ -132,6 +132,18 @@
     color: var(--fg);
   }
 
+  /* Nền đỏ chỉ dùng một nhịp ở section giới thiệu. Chữ ink trên đỏ đạt 5.3:1 */
+  .surface-red {
+    --surface: #ff343b;
+    --fg: #101010;
+    --fg-muted: #101010;
+    --fg-dim: #101010;
+    --line: rgba(16, 16, 16, 0.3);
+    --focus: #101010;
+    background-color: var(--surface);
+    color: var(--fg);
+  }
+
   /* Khung nội dung chung: lề ngang 16px mobile, 32px desktop */
   .shell {
     width: 100%;
@@ -280,6 +292,28 @@
     --wipe: #f5f4f0;
   }
 
+  .statement-cut {
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% calc(100% - 0.625rem),
+      calc(100% - 0.625rem) 100%,
+      0 100%,
+      0 6.5rem,
+      0.75rem 5.75rem,
+      0.75rem 2.75rem,
+      0 2rem
+    );
+  }
+
+  /* Chữ dựng bằng chấm tròn cho ô công cụ */
+  .dot-text {
+    background-image: radial-gradient(circle, var(--fg) 1.5px, transparent 1.7px);
+    background-size: 4px 4px;
+    background-clip: text;
+    color: transparent;
+  }
+
   .showreel-thumb {
     transition: filter 450ms ease;
   }
@@ -386,6 +420,14 @@
     border-bottom-width: 1px;
   }
 
+  .cursor.is-on-red .cursor-frame > span {
+    border-color: var(--color-ink);
+  }
+
+  .cursor.is-on-red .cursor-label {
+    color: var(--color-ink);
+  }
+
   .cursor-label {
     position: absolute;
     top: 24px;
@@ -418,6 +460,20 @@
   .cursor-label.is-revealed .cursor-char > span {
     transform: translateY(0);
   }
+}
+
+/* Ngoài layer để thắng utility: difference trên đỏ ra xanh ngọc, nút đỏ thì mất trên nền đỏ. */
+html.on-red header {
+  mix-blend-mode: normal;
+}
+
+html.on-red header nav {
+  color: var(--color-ink);
+}
+
+html.on-red .nav-contact {
+  background-color: var(--color-ink);
+  color: var(--color-paper);
 }
 
 @media (prefers-reduced-motion: reduce) {

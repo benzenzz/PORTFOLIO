@@ -12,7 +12,7 @@ const links = [
 ];
 
 const contactClass =
-  "label pointer-events-auto bg-red px-3 py-2 text-ink transition-opacity duration-[var(--dur-fast)] hover:opacity-80 focus-visible:outline-paper";
+  "nav-contact label pointer-events-auto bg-red px-3 py-2 text-ink transition-opacity duration-[var(--dur-fast)] hover:opacity-80 focus-visible:outline-paper";
 
 const scrambleLabel = (event: PointerEvent<HTMLElement>) => {
   const label = event.currentTarget.querySelector<HTMLElement>("[data-scramble]");

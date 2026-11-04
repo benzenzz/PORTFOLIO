@@ -158,11 +158,11 @@ export function Hero() {
         reveal.play();
       }
 
-      // Work trượt đè lên hero thì video không cần chạy nữa.
-      const work = document.getElementById("work");
-      const covered = work
+      // Section kế tiếp trượt đè lên hero thì video không cần chạy nữa.
+      const next = document.getElementById("statement");
+      const covered = next
         ? ScrollTrigger.create({
-            trigger: work,
+            trigger: next,
             start: "top top",
             onEnter: () => video.pause(),
             onLeaveBack: () => play(),

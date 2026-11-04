@@ -19,8 +19,20 @@ export const hero = {
   duration: "01:29",
 };
 
+export const statement = {
+  title: "I'm a creative video editor with 2 years of experience.",
+  highlights: [
+    { value: "2", label: "Years of experience" },
+    { value: "Pr", label: "Premiere Pro", tool: true },
+    { value: "Top 20", label: "TVCreate 2026 semi-finalist" },
+    { value: "Ae", label: "After Effects", tool: true },
+    { value: "Champion", label: "INTERNALATIO 2025" },
+    { value: "Ps", label: "Photoshop", tool: true },
+  ],
+};
+
 export const about = {
-  statement: "[One sentence on how I think about editing, Demi to provide]",
+  statement: "I think a cut is a decision about what the viewer feels next.",
   bio: [
     "I study International Business Economics at Foreign Trade University in Ho Chi Minh City.",
     "I edit video and build motion and VFX for event campaigns and social content.",
