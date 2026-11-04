@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useRef } from "react";
+import { type PointerEvent, useRef } from "react";
+import { scramble } from "@/lib/motion";
 
 const links = [
   { label: "Work", href: "/#work", path: "/" },
@@ -12,6 +13,11 @@ const links = [
 
 const contactClass =
   "label pointer-events-auto bg-red px-3 py-2 text-ink transition-opacity duration-[var(--dur-fast)] hover:opacity-80 focus-visible:outline-paper";
+
+const scrambleLabel = (event: PointerEvent<HTMLElement>) => {
+  const label = event.currentTarget.querySelector<HTMLElement>("[data-scramble]");
+  if (label) scramble(label);
+};
 
 export function Nav() {
   const pathname = usePathname();
@@ -40,10 +46,11 @@ export function Nav() {
                   <Link
                     href={link.href}
                     aria-current={pathname === link.path ? "page" : undefined}
+                    onPointerEnter={scrambleLabel}
                     className="label pointer-events-auto underline-offset-4 hover:underline aria-[current=page]:underline"
                   >
                     <span aria-hidden="true">■ </span>
-                    {link.label}
+                    <span data-scramble>{link.label}</span>
                   </Link>
                 </li>
               ))}

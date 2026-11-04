@@ -17,6 +17,6 @@ Trạng thái: `TODO`, `DOING`, `REVIEW`, `BLOCKED`, `DONE`. Luật xem `PIPELIN
 | T-11 | 6 | Trang dự án, gồm case study MA26 và 3 cấp độ | Sixth | `app/work/` | Mọi link trong list mở được | REVIEW | Claude làm thay Sixth. Dự án MA26 link về đúng khối trong case study. Ô ngoặc vuông chờ Demi, thứ tự timeline post chờ đối chiếu fanpage |
 | T-12 | 6 | Trang About và Playground | Sixth | `app/about/`, `app/playground/` | Đúng wireframe | REVIEW | Claude làm thay Sixth. Chưa có ảnh Photowalk nên hiện ô giữ chỗ. Quan điểm, câu bio 3, How I work chờ Demi |
 | T-13 | 7 | Review code và giao diện bằng Playwright | Claude | Không sửa code | Có danh sách lỗi trên board | TODO | Claude đã tự QA lúc làm thay Sixth: 4 khổ màn hình, bàn phím, dialog, reduced-motion, link, ảnh, video. Chưa có người khác review |
-| T-14 | 7 | Motion: list lặp, Lenis, hiệu ứng cuộn, reduced-motion | Claude | `components/`, `lib/` | Đúng spec | TODO | Sau T-13 |
+| T-14 | 7 | Motion: list lặp, Lenis, hiệu ứng cuộn, reduced-motion | Claude | `components/`, `lib/` | Đúng spec | DOING | Xong hero: loader, Lenis, con trỏ khung ngắm, parallax, wipe, scramble, chữ né chuột, halftone. Còn Selected Work, case study, About, Playground, Contact, chuyển trang |
 
 Task bước 8 và 9 sẽ được thêm sau.

@@ -11,6 +11,8 @@ export const hero = {
   name: "Demi Phan",
   label: "Creative · Video Editor · Motion",
   intro: "I turn messages into rhythm, then use VFX and motion to push how far video can carry them.",
+  /** Từ trong câu intro mà loader zoom xuyên qua. */
+  cutWord: "rhythm",
   showreel: "/media/hero/showreel.mp4",
   loop: "/media/hero/loop.mp4",
   poster: "/media/hero/poster.jpg",

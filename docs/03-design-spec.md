@@ -63,7 +63,7 @@ Lề ngang 32px trên desktop, 16px trên mobile. Điểm chuyển mobile dướ
 
 **Thanh menu:** `position: fixed`, trên cùng. Tên và mục menu dùng `mix-blend-mode: difference` với chữ trắng để đọc được trên mọi nền. Nút CONTACT không dùng blend, là `<a href="#contact">`. Trên mobile có nút `■ MENU` mở panel toàn màn hình, đóng được bằng Esc.
 
-**Hero:** cao `100svh`, video `public/media/hero/loop.mp4` tràn màn hình, `autoPlay muted loop playsInline`, có poster. Chữ ký tạm dùng chữ "Demi Phan" trong `<h1>` với `mix-blend-mode: difference`, bọc bởi 4 góc khung ngắm 14px, để sau này thay bằng SVG. Có lớp gradient tối nhẹ sau chữ góc trái dưới. Thẻ showreel là nút mở dialog phát `showreel.mp4` có tiếng và điều khiển, đóng bằng Esc và trả focus về nút. Không có màn hình loading.
+**Hero:** cao `100svh`, video `public/media/hero/loop.mp4` tràn màn hình, `autoPlay muted loop playsInline`, có poster. Chữ ký tạm dùng chữ "Demi Phan" trong `<h1>` với `mix-blend-mode: difference`, bọc bởi 4 góc khung ngắm 14px, để sau này thay bằng SVG. Có lớp gradient tối nhẹ sau chữ góc trái dưới. Thẻ showreel là nút mở dialog phát `showreel.mp4` có tiếng và điều khiển, đóng bằng Esc và trả focus về nút. Có loader khoảng 5 giây theo `docs/04-motion-copy-research.md` mục 5: chỉ chạy lần đầu mỗi tab, ở trang chủ, cuộn, bấm hoặc nhấn phím là bỏ qua ngay, không khóa cuộn, tắt khi reduced-motion. Khi cuộn, hero `sticky` đứng yên và Selected Work trượt đè lên.
 
 **Selected Work:** 3 tab là `role="tablist"`, dùng được bằng phím mũi tên, mặc định Video Editor. Mỗi hàng là `<a href="/work/[slug]">`. Rê chuột hoặc focus vào hàng thì tên đổi đỏ và khung phải đổi video xem trước.
 
