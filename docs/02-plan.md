@@ -62,7 +62,7 @@ Nhóm là nơi dự án thuộc về, tag là chất liệu. Vai trò hiện nga
 | VFX Teaser (VFX Teasers) | Marketing Arena 2025 | VFX, Motion | VFX & Motion Artist | `Videos/Marketing Arena/Teaser-Ma25.mp4` |
 | Official Cinematic Trailer | Marketing Arena 2025 | Video | Video Editor | `Videos/Marketing Arena/Official Cinematic Trailer.mp4` |
 
-"Main executive" trong file gốc được đổi thành chức danh quen thuộc với agency nước ngoài (VFX & Motion Artist, Motion Designer). Video ghép footage phim hiển thị ghi chú nguồn footage và không xếp đầu.
+"Main executive" trong file gốc được đổi thành chức danh quen thuộc với agency nước ngoài (VFX & Motion Artist, Motion Designer). Official Cinematic Trailer là video ghép footage phim: hiển thị dòng "Concept edit. Footage belongs to its original owners." và không xếp đầu.
 
 ### Social & Digital
 
@@ -185,7 +185,6 @@ Không dùng WebGL ở bản đầu. Chỉ thêm nếu hiệu ứng tách màu b
 
 - Vai trò của Demi trong 2 video Ngoc Ho Medicare
 - Danh sách post và KV tự làm, phần còn lại ghi là director
-- Video nào là video ghép footage phim
 - File CV tiếng Anh dùng để tải, đã đổi tên thành Demi Phan
 - Link LinkedIn: slug hiện là `trang-phan-aba4a8319`, giữ hay đổi?
 - Câu quan điểm và 3 dòng How I work cho About
