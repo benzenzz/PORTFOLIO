@@ -86,7 +86,7 @@ Việc cần chuẩn bị: nén `Hero Highlights.mpeg` (336 MB) và `Portrait.pn
 1. **Tên hiển thị:** đã chốt là Demi Phan.
 2. **Email liên hệ:** đã chốt là `trangbr2006@gmail.com`.
 3. **Định vị:** đã chốt là Video Editor, nhắm vị trí intern remote cho creative agency nước ngoài.
-4. **Vai trò trong MA26:** KV và 16 post do Demi tự làm, hay chỉ đạo đội làm? Từng video thì sao?
+4. **Vai trò trong MA26:** toàn bộ video do Demi làm. Post và KV: Piti thực hiện 50%, Demi làm director 50% (cách hiểu của Claude, chờ xác nhận). Cần biết Piti là ai và nên ghi credit thế nào.
 5. **Website:** file `link WEBSITE.docx` ghi thiết kế và phát triển `marketingarena.vn`, còn CV ghi quản lý WordPress và tùy chỉnh HTML/CSS. Nên dùng cách nói nào?
 6. **Quyền hình ảnh:** showreel có các cảnh giống phim hoặc footage bên ngoài không? Có được đăng ảnh thí sinh, mentor và logo nhà tài trợ không?
 7. **Số điện thoại:** có đưa lên web không? Đề xuất chỉ dùng email và LinkedIn.
