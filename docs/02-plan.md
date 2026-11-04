@@ -15,14 +15,31 @@ Mục tiêu: creative director ở agency nước ngoài xem tay nghề của De
 
 Contact là phần cuối của mọi trang, không tách trang riêng. Không làm trang đích riêng, vì người xem cần thấy tác phẩm ngay.
 
-**Thanh menu:** cố định ở đầu mọi trang, luôn nhìn thấy khi cuộn. Tên Demi Phan bên trái, bên phải là `[ WORK ]`, `[ PLAYGROUND ]`, `[ ABOUT ]`, `[ CONTACT ]`. Mục đang xem được đánh dấu đỏ. Chữ tự đảo màu để đọc được trên cả nền sáng và trên video. Trên điện thoại rút gọn thành `[ MENU ]`, chạm để mở.
+**Thanh menu:** cố định ở đầu mọi trang, luôn nhìn thấy khi cuộn. Tên Demi Phan bên trái, bên phải là `■ WORK`, `■ PLAYGROUND`, `■ ABOUT`, `■ CONTACT`. Mục đang xem được đánh dấu đỏ. Chữ tự đảo màu để đọc được trên cả nền sáng và trên video. Trên điện thoại rút gọn thành `■ MENU`, chạm để mở.
 
 ## Trang Work
 
-1. **Hero:** tên Demi Phan, dòng "Video Editor", vòng lặp video ngắn lấy từ showreel (tránh giây 40 đến 56), nút `[ PLAY SHOWREEL ]` mở bản đầy đủ có tiếng.
+1. **Hero:** dựng theo mục "Hero theo noartmusic.com" bên dưới.
 2. **Danh sách video:** nút chuyển Gallery và Full-Screen. Mỗi thẻ có video xem trước, tên, loại video, năm, vai trò.
 3. **Case study:** một thẻ nổi bật dẫn tới Marketing Arena 2026.
 4. **Contact:** email lớn, LinkedIn, múi giờ, tải CV.
+
+## Hero theo noartmusic.com
+
+Demi chọn [noartmusic.com](https://www.noartmusic.com/) làm reference sát cho hero. Làm giống bố cục và hiệu ứng, thay toàn bộ nội dung bằng của Demi. Không dùng logo, footage và câu chữ của No Art.
+
+| Thành phần | Ở No Art | Bản của Demi |
+|---|---|---|
+| Nền | Video tràn màn hình, cao đúng một màn hình, cắt nhanh, có nhịp đen và nhịp màu | Vòng lặp 15 đến 20 giây dựng từ video của Demi, tránh giây 40 đến 56 của showreel |
+| Chính giữa | Logo viết tay, chữ đảo màu theo video (`mix-blend-mode: difference`) | Chữ ký "Demi Phan" cùng hiệu ứng |
+| Khung ngắm | 4 góc vuông nhỏ quanh logo, thêm dấu ở mép màn hình | Giữ nguyên, hợp với ý tưởng khung ngắm phòng dựng |
+| Trái dưới | Nhãn mono có ô vuông nhỏ và mô tả ngắn | `■ VIDEO EDITOR`, một câu giới thiệu, "open to remote internships" |
+| Phải dưới | Thẻ thumbnail "Next up" | Thẻ thumbnail `PLAY SHOWREEL 01:29`, mở bản đầy đủ có tiếng |
+| Menu | Chữ mono nhỏ có ô vuông, hai hàng; mobile là nút `■ MENU` | Dùng kiểu này cho toàn site, thay kiểu ngoặc vuông |
+
+Khi cuộn, hero trôi lên như bình thường, không bị ghim, phần nền trắng hiện ra ngay. Không có màn hình loading chặn, video hiện ngay trên poster. Bản reduced-motion dừng video ở poster.
+
+Font thêm Chivo Mono (miễn phí) cho nhãn và menu, cùng họ font với reference.
 
 ## Danh sách tác phẩm đề xuất
 
@@ -80,6 +97,8 @@ Không dùng WebGL ở bản đầu. Chỉ thêm nếu hiệu ứng tách màu b
 - Mẫu video Ngoc Ho Medicare và xác nhận được đăng
 - Danh sách post và KV tự làm, phần còn lại ghi là director
 - Side project cho Playground: tên, năm, mô tả ngắn, file hoặc link
+- Chữ ký "Demi Phan" dạng SVG hoặc PNG nền trong, cho hero
+- Vòng lặp hero 15 đến 20 giây do Demi dựng. Nếu chưa có, Claude cắt bản nháp bằng `ffmpeg`
 - Vai trò trong First Event 2025
 - Video nào là video ghép footage phim
 - File CV tiếng Anh dùng để tải, đã đổi tên thành Demi Phan
