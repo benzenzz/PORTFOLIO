@@ -29,7 +29,7 @@ Contact là phần cuối của mọi trang, không tách trang riêng. Không l
 
 | Tab | Dự án |
 |---|---|
-| Video Editor | Top 4 Reveal Film, Official Cinematic Trailer, Ngoc Ho Medicare |
+| Video Editor | Top 4 Reveal Film, Official Cinematic Trailer |
 | VFX & Motion | Nguyen Hue OOH Spot, VFX Teaser, Registration Countdown |
 | Designer | Key Visual System, Campaign Social Assets, Daily Social Content Series |
 
@@ -74,7 +74,7 @@ Nhóm là nơi dự án thuộc về, tag là chất liệu. Vai trò hiện nga
 
 | Tác phẩm | Bộ lọc | Tag | Vai trò | Nguồn |
 |---|---|---|---|---|
-| Ngoc Ho Medicare: Long-form & Shorts | Ngoc Ho Medicare | Video | [Xác nhận vai trò từng video] | [Video 1](https://youtu.be/PitVgj5neCk), [Video 2](https://youtu.be/25ce-jaLdXg), nhúng YouTube |
+| Ngoc Ho Medicare: Long-form & Shorts (Demi tạm ẩn) | Ngoc Ho Medicare | Video | [Xác nhận vai trò từng video] | [Video 1](https://youtu.be/PitVgj5neCk), [Video 2](https://youtu.be/25ce-jaLdXg), nhúng YouTube |
 | Daily Social Content Series (Social posts series) | Marketing Daily | Design | Designer | `.../design/daily-post`, 5 file, [bài Facebook](https://www.facebook.com/share/p/1CQe1hGzNF/) |
 | Seasonal Campaign: Tết & Mid-Autumn | [Thêm sau] | Photo | [Xác nhận vai trò] | Thêm sau |
 
@@ -95,7 +95,7 @@ Video luôn lên đầu. Recruiter xem 10 đến 20 giây video trước khi đ�
 | Cấp | Nội dung | Dự án |
 |---|---|---|
 | A: Flagship | Video, At a glance, Brief, 2 đến 4 quyết định sáng tạo, Process, Deliverables, Result, What I learned | Marketing Arena 2026 |
-| B: Project | Video, At a glance, 2 đến 3 câu bối cảnh và vai trò, 2 đến 3 video khác, một dòng đã học | Marketing Arena 2025, Ngoc Ho Medicare |
+| B: Project | Video, At a glance, 2 đến 3 câu bối cảnh và vai trò, 2 đến 3 video khác, một dòng đã học | Marketing Arena 2025 |
 | C: Snapshot | Video, At a glance, 1 câu | Animated Invitations, Daily Social Content Series |
 
 Một dòng "First time I..." hoặc "What I'd do differently" trong case study là bằng chứng tự học tốt nhất, không cần tự khen.
