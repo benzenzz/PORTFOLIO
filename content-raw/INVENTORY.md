@@ -7,6 +7,7 @@ Danh sách theo tên file, chưa mở nội dung. Vai trò của Demi trong từ
 | File | Dung lượng | Ghi chú |
 |---|---|---|
 | `[RESUME] DEMI PHAN_VIDEO EDITOR.docx` | dưới 0.1 MB | CV của Demi |
+| `reference/[RESUME] PITI STH.docx` | dưới 0.1 MB | Bản CV khác của Demi, có thêm SPYCOM và Tết |
 | `Portrait.png` | 17.4 MB | Cần nén trước khi lên web |
 | `Hero Highlights.mpeg` | 335.9 MB | Cần encode lại trước khi lên web |
 
@@ -27,4 +28,4 @@ Tài liệu: `MARKETING ARENA 2026/link WEBSITE.docx`
 
 - `Moodboard/`: 12 ảnh
 - `reference/MOOD BOARD PORTFOLIO.png`: moodboard chính
-- `reference/`: 5 video tham khảo, `[RESUME] PITI STH.docx`, trang lưu "Huy Phan - Award-winning designer"
+- `reference/`: 5 video tham khảo, trang lưu "Huy Phan - Award-winning designer"
