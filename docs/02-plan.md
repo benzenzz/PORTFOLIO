@@ -10,11 +10,12 @@ Mục tiêu: creative director ở agency nước ngoài xem tay nghề của De
 |---|---|---|
 | Work | `/` | Hero showreel và danh sách video, là trang chính |
 | Dự án | `/work/[slug]` | Xem video tràn màn hình, vai trò, bối cảnh, video kế tiếp |
+| Playground | `/playground` | Side project của Demi, thêm mới bằng cách sửa file dữ liệu |
 | About | `/about` | Giới thiệu, chân dung, kỹ năng, tải CV |
 
 Contact là phần cuối của mọi trang, không tách trang riêng. Không làm trang đích riêng, vì người xem cần thấy tác phẩm ngay.
 
-**Thanh menu:** cố định ở đầu mọi trang, luôn nhìn thấy khi cuộn. Tên Demi Phan bên trái, bên phải là `[ WORK ]`, `[ ABOUT ]`, `[ CONTACT ]`. Mục đang xem được đánh dấu đỏ. Chữ tự đảo màu để đọc được trên cả nền sáng và trên video. Trên điện thoại rút gọn thành `[ MENU ]`, chạm để mở.
+**Thanh menu:** cố định ở đầu mọi trang, luôn nhìn thấy khi cuộn. Tên Demi Phan bên trái, bên phải là `[ WORK ]`, `[ PLAYGROUND ]`, `[ ABOUT ]`, `[ CONTACT ]`. Mục đang xem được đánh dấu đỏ. Chữ tự đảo màu để đọc được trên cả nền sáng và trên video. Trên điện thoại rút gọn thành `[ MENU ]`, chạm để mở.
 
 ## Trang Work
 
@@ -42,6 +43,10 @@ Tên video ở trên là tên làm việc. Video ghép footage phim hiển thị
 Bối cảnh, vai trò, các video, KV và post, kết quả. Số liệu lấy nguyên từ CV: 3.087 người tham gia, 1.029 đội, 80 trường, 2,4M view, 37K+ tương tác, 14,2K click, 7K+ session.
 
 Phần việc ghi rõ: toàn bộ video do Demi làm; Demi thiết kế và quản lý `marketingarena.vn`; post gồm phần tự làm và phần chỉ đạo. Ẩn 4 post có ảnh thí sinh.
+
+## Playground
+
+Lưới so le, nhẹ và tự do hơn trang Work. Mỗi mục có tên, năm, một dòng mô tả và ảnh hoặc video; có thể dẫn ra link ngoài. Dữ liệu nằm trong `content/playground.ts`, thêm side project không cần sửa giao diện. Trang để trống phần chưa có, không dùng nội dung giả.
 
 ## About
 
@@ -74,6 +79,7 @@ Không dùng WebGL ở bản đầu. Chỉ thêm nếu hiệu ứng tách màu b
 
 - Mẫu video Ngoc Ho Medicare và xác nhận được đăng
 - Danh sách post và KV tự làm, phần còn lại ghi là director
+- Side project cho Playground: tên, năm, mô tả ngắn, file hoặc link
 - Vai trò trong First Event 2025
 - Video nào là video ghép footage phim
 - File CV tiếng Anh dùng để tải, đã đổi tên thành Demi Phan
