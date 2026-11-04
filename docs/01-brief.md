@@ -8,7 +8,17 @@ Cách đọc tài liệu: video được xem qua khung hình trích ra, không n
 
 Sinh viên Kinh tế Quốc tế, Đại học Ngoại thương TP.HCM (dự kiến tốt nghiệp 1/2028), làm video và creative.
 
-Câu chuyện mạnh nhất không phải "biết dựng video" mà là **người cầm trịch creative cho một chiến dịch quy mô quốc gia, đồng thời tự tay làm hình ảnh chuyển động**. Hồ sơ này khác với một video editor thuần túy, vì có cả tư duy marketing, điều phối đội ngũ, làm việc với nhà tài trợ và làm web.
+**Mục tiêu của portfolio:** ứng tuyển vị trí Video Editor Intern làm remote cho một creative agency ở nước ngoài. Người xem chính là creative director hoặc producer đang lọc nhanh nhiều hồ sơ.
+
+Vì vậy thông điệp chính là **video editor biết kể chuyện, có tư duy creative và làm được từ xa**. Kinh nghiệm dẫn dắt Marketing Arena là điểm cộng giúp Demi khác các ứng viên khác, không phải chức danh chính.
+
+Hệ quả cho website:
+
+- **Tiếng Anh là ngôn ngữ chính.** Tác phẩm tiếng Việt cần một dòng bối cảnh bằng tiếng Anh.
+- **Xem được tay nghề trong 30 giây đầu:** showreel ở ngay đầu trang, sau đó là các video chọn lọc, ghi rõ phần Demi dựng.
+- **Video đứng trước post tĩnh.** KV và social post là phần phụ của câu chuyện chiến dịch.
+- **Chứng minh làm remote được:** Ngoc Ho Medicare là kinh nghiệm remote duy nhất với khách ở Mỹ, cần có mẫu video.
+- **Dễ liên hệ:** email, LinkedIn và múi giờ Việt Nam luôn dễ thấy; CV bản tiếng Anh tải được.
 
 Bằng chứng trong CV:
 
@@ -75,10 +85,10 @@ Việc cần chuẩn bị: nén `Hero Highlights.mpeg` (336 MB) và `Portrait.pn
 
 1. **Tên hiển thị:** đã chốt là Demi Phan.
 2. **Email liên hệ:** đã chốt là `trangbr2006@gmail.com`.
-3. **Định vị:** đề xuất "Creative Lead & Video Editor". Chức danh trên CV là Video Editor Intern.
+3. **Định vị:** đã chốt là Video Editor, nhắm vị trí intern remote cho creative agency nước ngoài.
 4. **Vai trò trong MA26:** KV và 16 post do Demi tự làm, hay chỉ đạo đội làm? Từng video thì sao?
 5. **Website:** file `link WEBSITE.docx` ghi thiết kế và phát triển `marketingarena.vn`, còn CV ghi quản lý WordPress và tùy chỉnh HTML/CSS. Nên dùng cách nói nào?
 6. **Quyền hình ảnh:** showreel có các cảnh giống phim hoặc footage bên ngoài không? Có được đăng ảnh thí sinh, mentor và logo nhà tài trợ không?
 7. **Số điện thoại:** có đưa lên web không? Đề xuất chỉ dùng email và LinkedIn.
-8. **Tài sản còn thiếu:** có file cho Medicare, TVC TVCreate, Tết hay MA 2025 không?
+8. **Tài sản còn thiếu:** có file cho TVC TVCreate, Tết hay MA 2025 không? Quan trọng nhất là mẫu video Ngoc Ho Medicare, và có được phép đăng không?
 9. **Hướng "Cut":** đồng ý hay muốn đổi?
