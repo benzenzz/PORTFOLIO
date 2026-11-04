@@ -24,7 +24,7 @@ Contact là phần cuối của mọi trang, không tách trang riêng. Không l
 ## Trang Work
 
 1. **Hero:** dựng theo mục "Hero theo noartmusic.com" bên dưới.
-2. **Selected Work:** bộ lọc theo sự kiện, nút chuyển Gallery và Full-Screen. Mỗi thẻ có video xem trước, tên, loại video, năm, vai trò và một câu mô tả.
+2. **Selected Work:** list chữ lớn theo kiểu Casey, thay cho lưới thẻ và nút Gallery, Full-Screen. Cột trái có tiêu đề và bộ lọc theo sự kiện, cột giữa là tên dự án kèm năm, tag, vai trò, cột phải là video xem trước. Rê chuột hoặc focus bàn phím vào tên thì chữ đổi đỏ và video đổi theo. Trên điện thoại, mỗi dòng có sẵn thumbnail. List không chạy vòng lặp, cuộn trang vẫn bình thường.
 3. **Contact.**
 
 Trang chủ chỉ hiện nhóm Event Campaigns và Social & Digital. Playground có mục riêng trên menu nên không lặp lại ở đây.
