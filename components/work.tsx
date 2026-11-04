@@ -89,7 +89,7 @@ export function Work() {
 
   return (
     <section id="work" aria-labelledby="work-title" className="surface-light">
-      <div className="shell grid min-h-svh gap-8 py-24 md:grid-cols-[minmax(11rem,20%)_1fr_minmax(12rem,22%)] md:items-center md:gap-6">
+      <div className="shell grid gap-8 py-24 md:min-h-svh md:grid-cols-[minmax(11rem,20%)_1fr_minmax(12rem,22%)] md:items-center md:gap-6">
         <div>
           <h2 id="work-title" className="text-4xl uppercase md:text-[clamp(1.75rem,2.6vw,2.5rem)]">
             Selected work
@@ -98,7 +98,6 @@ export function Work() {
           <div
             role="tablist"
             aria-label="Filter by discipline"
-            aria-orientation="vertical"
             onKeyDown={onTabKey}
             className="mt-6 flex flex-wrap gap-x-4 gap-y-1 md:flex-col md:items-start"
           >

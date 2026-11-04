@@ -16,3 +16,4 @@ public/media/
 
 # Log tạm khi chạy kiểm tra
 *.log
+tsconfig.tsbuildinfo

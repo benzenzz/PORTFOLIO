@@ -41,7 +41,7 @@ export function Hero() {
       />
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-gradient-to-tr from-ink/75 via-transparent to-transparent"
+        className="absolute inset-0 -z-10 bg-gradient-to-t from-ink/85 via-transparent to-transparent md:bg-gradient-to-tr md:from-ink/75"
       />
 
       <div className="absolute inset-0 flex items-center justify-center px-4 mix-blend-difference">

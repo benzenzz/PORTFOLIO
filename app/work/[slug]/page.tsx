@@ -77,7 +77,7 @@ function Campaign() {
           <div className="grid gap-4 md:grid-cols-2">
             {motion.map((project) =>
               project.video ? (
-                <div key={project.slug} id={project.slug} className="scroll-mt-20">
+                <div key={project.slug} id={project.slug}>
                   <Video video={project.video} />
                   <p className="label-sm mt-1 text-fg-muted">{project.role}</p>
                 </div>
@@ -86,7 +86,7 @@ function Campaign() {
           </div>
         </section>
 
-        <section id="key-visual-system" className="flex scroll-mt-20 flex-col gap-3">
+        <section id="key-visual-system" className="flex flex-col gap-3">
           <SectionLabel>Key Visual System · {need("key-visual-system").role}</SectionLabel>
           <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
             {campaign.keyVisuals.map((image) => (
@@ -95,7 +95,7 @@ function Campaign() {
           </div>
         </section>
 
-        <section id="campaign-social-assets" className="flex scroll-mt-20 flex-col gap-3">
+        <section id="campaign-social-assets" className="flex flex-col gap-3">
           <SectionLabel>
             Campaign Social Assets · {need("campaign-social-assets").role} · In posting order
           </SectionLabel>

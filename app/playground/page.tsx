@@ -59,7 +59,7 @@ export default function PlaygroundPage() {
   return (
     <div className="surface-light">
       <div className="shell pt-24 pb-24">
-        <h1 className="display-xl uppercase">{playground.title}</h1>
+        <h1 className="display-xl text-[clamp(2.75rem,10vw,9rem)] uppercase">{playground.title}</h1>
         <p className="mt-6">{playground.intro}</p>
 
         <div className="mt-8 grid gap-10 md:grid-cols-[1.35fr_1fr] md:gap-6">
