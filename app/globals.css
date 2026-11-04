@@ -1,0 +1,136 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-inter-tight), system-ui, sans-serif;
+  --font-mono: var(--font-chivo-mono), ui-monospace, monospace;
+
+  --color-ink: #101010;
+  --color-paper: #f5f4f0;
+  --color-red: #ff343b;
+  --color-gray: #6f6f6f;
+  --color-gray-dark: #b8b8b8;
+  --color-dim: #8c8c8c;
+  --color-line: rgba(16, 16, 16, 0.16);
+  --color-line-dark: rgba(255, 255, 255, 0.2);
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 180ms;
+  --dur-base: 400ms;
+  --dur-slow: 700ms;
+
+  --spacing-gutter: 1rem;
+  --spacing-gutter-lg: 2rem;
+}
+
+@media (min-width: 768px) {
+  @theme inline {
+    --spacing-gutter: 2rem;
+  }
+}
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: clamp(1rem, 0.95rem + 0.2vw, 1.125rem);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 0.92;
+    text-wrap: balance;
+  }
+
+  ::selection {
+    background-color: var(--color-red);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-red);
+    outline-offset: 3px;
+  }
+
+  img,
+  video {
+    display: block;
+    max-width: 100%;
+  }
+}
+
+@layer components {
+  /* Khung nội dung chung: lề ngang 16px mobile, 32px desktop */
+  .shell {
+    width: 100%;
+    padding-inline: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .shell {
+      padding-inline: 2rem;
+    }
+  }
+
+  /* Nhãn mono in hoa dùng cho menu, metadata */
+  .label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    line-height: 1.2;
+  }
+
+  .label-sm {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    line-height: 1.2;
+  }
+
+  .display-xl {
+    font-size: clamp(3rem, 10vw, 9rem);
+  }
+
+  .display-item {
+    font-size: clamp(1.25rem, 3.1vw, 2.75rem);
+  }
+
+  .display-email {
+    font-size: clamp(1.75rem, 7.2vw, 6.5rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
