@@ -15,7 +15,7 @@ Trạng thái: `TODO`, `DOING`, `REVIEW`, `BLOCKED`, `DONE`. Luật xem `PIPELIN
 | T-09 | 6 | Hero và dialog showreel | Sixth | `components/hero*` | Đúng spec, cả desktop và mobile | REVIEW | Claude làm thay Sixth. Đúng spec. `loop.mp4` vẫn là bản nháp, chữ ký tạm dùng chữ |
 | T-10 | 6 | Selected Work bản tĩnh: 3 tab, list, video xem trước | Sixth | `components/work*`, `app/page.tsx` | Tab dùng được bằng phím, chưa cần lặp | REVIEW | Claude làm thay Sixth. Tab dùng được bằng phím mũi tên, Home, End. Chưa lặp, để T-14 |
 | T-11 | 6 | Trang dự án, gồm case study MA26 và 3 cấp độ | Sixth | `app/work/` | Mọi link trong list mở được | REVIEW | Claude làm thay Sixth. Dự án MA26 link về đúng khối trong case study. Ô ngoặc vuông chờ Demi, thứ tự timeline post chờ đối chiếu fanpage |
-| T-12 | 6 | Trang About và Playground | Sixth | `app/about/`, `app/playground/` | Đúng wireframe | TODO | |
+| T-12 | 6 | Trang About và Playground | Sixth | `app/about/`, `app/playground/` | Đúng wireframe | REVIEW | Claude làm thay Sixth. Chưa có ảnh Photowalk nên hiện ô giữ chỗ. Quan điểm, câu bio 3, How I work chờ Demi |
 | T-13 | 7 | Review code và giao diện bằng Playwright | Claude | Không sửa code | Có danh sách lỗi trên board | TODO | Chờ T-06 đến T-12 |
 | T-14 | 7 | Motion: list lặp, Lenis, hiệu ứng cuộn, reduced-motion | Claude | `components/`, `lib/` | Đúng spec | TODO | Sau T-13 |
 
