@@ -47,7 +47,7 @@ Font thêm Chivo Mono (miễn phí) cho nhãn và menu, cùng họ font với re
 |---|---|---|---|---|
 | 1 | Gala Night film | `Video editor/gala-night...mp4` | Video Editor | Mở đầu danh sách |
 | 2 | Time Pressure teaser | `Video editor/quy-thoi-gian...mp4` | Video Editor | Tên tiếng Anh tạm, cần Demi duyệt |
-| 3 | First Event 2025 "Spycom" | `first-event-2025...mp4` | [Xác nhận vai trò] | CV ghi "contributed", cần rõ phần dựng |
+| 3 | First Event 2025 "Spycom" | `first-event-2025...mp4` | Filmer & Video Editor | Demi xác nhận |
 | 4 | Top 4 announcement | `Vfx_motion/chinh-thuc...mp4` | Video Editor | |
 | 5 | Nguyen Hue OOH | `Vfx_motion/ma26-ooh...mp4` | Video Editor | Video dọc |
 | 6 | Countdown 72H | `Vfx_motion/cd-end-2.mp4` | Motion | Video dọc |
@@ -99,7 +99,6 @@ Không dùng WebGL ở bản đầu. Chỉ thêm nếu hiệu ứng tách màu b
 - Side project cho Playground: tên, năm, mô tả ngắn, file hoặc link
 - Chữ ký "Demi Phan" dạng SVG hoặc PNG nền trong, cho hero
 - Vòng lặp hero 15 đến 20 giây do Demi dựng. Nếu chưa có, Claude cắt bản nháp bằng `ffmpeg`
-- Vai trò trong First Event 2025
 - Video nào là video ghép footage phim
 - File CV tiếng Anh dùng để tải, đã đổi tên thành Demi Phan
 - LinkedIn hiện có slug `trang-phan-aba4a8319`: giữ hay đổi?
