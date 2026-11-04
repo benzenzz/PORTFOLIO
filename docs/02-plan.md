@@ -160,7 +160,7 @@ Chân dung `Portrait.png` trên nền đen. Giải thưởng TVCreate và INTERN
 
 ## Stack
 
-Thư mục `PORTFOLIO WEB` đã có project chạy được với đúng các công cụ này. Nơi dựng site chờ Demi quyết định.
+Site được dựng lại từ đầu trong thư mục `PORTFOLIO`, Demi đã chốt. `PORTFOLIO WEB` chỉ dùng làm nơi lấy tài sản gốc, không sửa và không lấy code.
 
 | Hạng mục | Chọn | Lý do |
 |---|---|---|
