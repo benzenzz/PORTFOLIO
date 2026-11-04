@@ -74,7 +74,7 @@ Việc cần chuẩn bị: nén `Hero Highlights.mpeg` (336 MB) và `Portrait.pn
 ## 5. Demi cần xác nhận
 
 1. **Tên hiển thị:** đã chốt là Demi Phan.
-2. **Email liên hệ:** cả hai CV ghi `trangbr2006@gmail.com`, còn tài khoản Figma và git dùng `trangvr2006@gmail.com`. Một trong hai có thể gõ nhầm.
+2. **Email liên hệ:** đã chốt là `trangbr2006@gmail.com`.
 3. **Định vị:** đề xuất "Creative Lead & Video Editor". Chức danh trên CV là Video Editor Intern.
 4. **Vai trò trong MA26:** KV và 16 post do Demi tự làm, hay chỉ đạo đội làm? Từng video thì sao?
 5. **Website:** file `link WEBSITE.docx` ghi thiết kế và phát triển `marketingarena.vn`, còn CV ghi quản lý WordPress và tùy chỉnh HTML/CSS. Nên dùng cách nói nào?
