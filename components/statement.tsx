@@ -4,8 +4,16 @@ import { useRef } from "react";
 import { about, statement } from "@/content/site";
 import { addWipe, gsap, prefersReducedMotion, scramble, ScrollTrigger, splitWipe, useGSAP } from "@/lib/motion";
 
-// Thứ tự 6 ô tạo bàn cờ trên lưới 4 cột.
-const CHECKER = ["md:col-start-1", "md:col-start-3", "md:col-start-2", "md:col-start-4", "md:col-start-1", "md:col-start-3"];
+// Vị trí 7 ô trên bàn cờ 5 cột, theo thứ tự trong statement.highlights.
+const CHECKER = [
+  "md:col-start-2 md:row-start-2",
+  "md:col-start-1 md:row-start-1",
+  "md:col-start-3 md:row-start-1",
+  "md:col-start-5 md:row-start-1",
+  "md:col-start-4 md:row-start-2",
+  "md:col-start-3 md:row-start-3",
+  "md:col-start-5 md:row-start-3",
+];
 const NAV_LINE = "48px"; // Giữa thanh menu, nơi menu đổi màu khi đi vào nền đỏ.
 
 export function Statement() {
@@ -76,15 +84,13 @@ export function Statement() {
       </div>
 
       <div ref={panel} className="surface-red shell py-[clamp(4rem,8vw,6rem)]">
-        <ul className="grid grid-cols-2 gap-1 md:grid-cols-4 md:gap-0">
+        <ul className="grid grid-cols-2 gap-1 md:grid-cols-5 md:gap-0">
           {statement.highlights.map((item, index) => (
-            <li key={item.label} className={`statement-card ${CHECKER[index]}`}>
-              <div className="statement-cut flex aspect-[5/4] flex-col-reverse justify-between bg-ink/8 p-3 pl-6 md:p-4 md:pl-7">
+            <li key={item.label} className={`statement-card ${CHECKER[index]} ${"tool" in item ? "" : "max-md:col-span-2"}`}>
+              <div className={`statement-cut flex aspect-[5/4] flex-col-reverse justify-between bg-ink/8 p-3 pl-6 md:p-4 md:pl-7 ${"tool" in item ? "" : "max-md:aspect-[5/2]"}`}>
                 <p
                   aria-hidden={"tool" in item ? true : undefined}
-                  className={`font-bold tracking-[-0.03em] ${"tool" in item ? "dot-text" : ""} ${
-                    item.value.length > 6 ? "display-item" : "text-[clamp(2.25rem,5.4vw,5rem)] leading-none"
-                  }`}
+                  className={`text-[clamp(2.25rem,5.4vw,5rem)] leading-none font-bold tracking-[-0.03em] ${"tool" in item ? "dot-text" : ""}`}
                 >
                   {item.value}
                 </p>

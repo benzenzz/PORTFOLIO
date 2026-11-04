@@ -23,11 +23,12 @@ export const statement = {
   title: "I'm a creative video editor with 2 years of experience.",
   highlights: [
     { value: "2", label: "Years of experience" },
-    { value: "Pr", label: "Premiere Pro", tool: true },
-    { value: "Top 20", label: "TVCreate 2026 semi-finalist" },
+    { value: "<>", label: "HTML", tool: true },
     { value: "Ae", label: "After Effects", tool: true },
-    { value: "Champion", label: "INTERNALATIO 2025" },
+    { value: "Cl", label: "Claude", tool: true },
     { value: "Ps", label: "Photoshop", tool: true },
+    { value: "JS", label: "JavaScript", tool: true },
+    { value: "Pr", label: "Premiere Pro", tool: true },
   ],
 };
 
@@ -54,7 +55,7 @@ export const about = {
     { skill: "VFX", slug: "nguyen-hue-ooh-spot" },
     { skill: "Visual design", slug: "key-visual-system" },
   ],
-  tools: "Premiere Pro, After Effects, Photoshop",
+  tools: "Premiere Pro, After Effects, Photoshop, HTML, JavaScript, Claude",
   howIWork: "[3 lines: reading the brief, rough cut, taking feedback, Demi to provide]",
   remote: [
     { label: "Time zone", value: "GMT+7" },
