@@ -116,18 +116,18 @@
     color: var(--fg);
   }
 
-  /* Nền sáng: xám, tím, vàng. Vàng chỉ làm mảng nền có chữ tím, trên xám chỉ đạt 1.6:1 */
+  /* Nền sáng: paper, ink, đỏ. Đỏ chỉ dùng cho chữ lớn, nút và focus */
   .surface-light {
-    --surface: #e5e4e2;
-    --fg: #3a0f34;
-    --fg-muted: #5f5a5e;
-    --fg-dim: #7a7478;
-    --accent: #eaaa00;
-    --on-accent: #3a0f34;
-    --selected: #eaaa00;
-    --on-selected: #3a0f34;
-    --line: rgba(58, 15, 52, 0.16);
-    --focus: #3a0f34;
+    --surface: #f5f4f0;
+    --fg: #101010;
+    --fg-muted: #6f6f6f;
+    --fg-dim: #8c8c8c;
+    --accent: #ff343b;
+    --on-accent: #101010;
+    --selected: transparent;
+    --on-selected: #ff343b;
+    --line: rgba(16, 16, 16, 0.16);
+    --focus: #ff343b;
     background-color: var(--surface);
     color: var(--fg);
   }

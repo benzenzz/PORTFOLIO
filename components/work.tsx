@@ -111,9 +111,9 @@ export function Work() {
                 aria-controls={PANEL_ID}
                 tabIndex={item === tab ? 0 : -1}
                 onClick={() => choose(item)}
-                className="label px-1 py-1 aria-selected:bg-selected aria-selected:text-on-selected"
+                className="group label px-1 py-1"
               >
-                <span aria-hidden="true">■ </span>
+                <span aria-hidden="true" className="group-aria-selected:text-red">■ </span>
                 {item}
               </button>
             ))}

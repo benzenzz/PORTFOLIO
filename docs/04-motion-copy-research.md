@@ -206,7 +206,7 @@ Với mọi hiệu ứng: tái tạo cơ chế bằng code mới, không chép c
 
 Reduced-motion: tắt 1, 2 (đổi tức thì), 3, 4, 6, 7, 8, 9, 10, 12. Chữ và ảnh phải đọc được khi JS animation hỏng.
 
-## 5b. Bảng màu theo nền
+## 5b. Bảng màu theo nền (ĐÃ HỦY: Demi quay lại đen, trắng, đỏ cho cả hai nền)
 
 Demi chốt: nền tối dùng đen, trắng, đỏ; nền sáng dùng xám, tím, vàng. Giả định "mode" là theo nền từng trang như spec, không làm nút đổi giao diện: Hero, Case study, About, Contact là nền tối; Work, Playground là nền sáng.
 

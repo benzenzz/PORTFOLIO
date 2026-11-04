@@ -35,9 +35,9 @@ Figma: https://www.figma.com/design/vxY5Tr69ZwUk5VgZJlWzqk (chỉ để Demi xem
 --dur-slow: 700ms;
 ```
 
-Trang Work và Playground dùng `.surface-light`: nền xám `#E5E4E2`, chữ tím `#3A0F34`, nhấn vàng `#EAAA00`. Hero, Case study, About và Contact dùng `.surface-dark`: nền `--color-ink`, chữ `--color-paper`, nhấn đỏ. Giá trị đầy đủ nằm ở `app/globals.css`, component dùng lớp `text-fg`, `bg-accent`, `border-line`.
+Trang Work và Playground dùng `.surface-light`: nền `--color-paper`, chữ `--color-ink`, nhấn đỏ. Hero, Case study, About và Contact dùng `.surface-dark`: nền `--color-ink`, chữ `--color-paper`, nhấn đỏ. Giá trị đầy đủ nằm ở `app/globals.css`, component dùng lớp `text-fg`, `bg-accent`, `border-line`.
 
-Đỏ chỉ dùng cho trạng thái đang chọn, nút chính và focus. Trên nền đỏ dùng chữ `--color-ink`. Vàng không dùng làm chữ hay viền mỏng vì trên nền xám chỉ đạt 1.6:1: vàng là mảng nền có chữ tím.
+Đỏ chỉ dùng cho trạng thái đang chọn, nút chính và focus. Trên nền đỏ dùng chữ `--color-ink`. Demi đã quay lại bảng đen, trắng, đỏ (2026-11-04), bỏ phương án xám, tím, vàng.
 
 ## Chữ
 
