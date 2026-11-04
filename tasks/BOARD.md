@@ -13,7 +13,7 @@ Trạng thái: `TODO`, `DOING`, `REVIEW`, `BLOCKED`, `DONE`. Luật xem `PIPELIN
 | T-07 | 6 | Dữ liệu `content/projects.ts`, `content/playground.ts` | Sixth | `content/` | Đủ dự án trong plan, Medicare `hidden` | REVIEW | Claude làm thay Sixth. Có đủ dự án trong plan, Medicare và Seasonal `hidden`. Năm của Daily series và các ô ngoặc vuông chờ Demi |
 | T-08 | 6 | Thanh menu và Contact | Sixth | `components/nav*`, `components/contact*` | Đúng wireframe, dùng được bằng bàn phím | REVIEW | Claude làm thay Sixth. Menu dùng `<dialog>` nên có sẵn Esc và trả focus. Sửa thêm `app/layout.tsx`, thêm `content/site.ts`. CV chưa có file nên hiện ô ngoặc vuông |
 | T-09 | 6 | Hero và dialog showreel | Sixth | `components/hero*` | Đúng spec, cả desktop và mobile | REVIEW | Claude làm thay Sixth. Đúng spec. `loop.mp4` vẫn là bản nháp, chữ ký tạm dùng chữ |
-| T-10 | 6 | Selected Work bản tĩnh: 3 tab, list, video xem trước | Sixth | `components/work*`, `app/page.tsx` | Tab dùng được bằng phím, chưa cần lặp | TODO | |
+| T-10 | 6 | Selected Work bản tĩnh: 3 tab, list, video xem trước | Sixth | `components/work*`, `app/page.tsx` | Tab dùng được bằng phím, chưa cần lặp | REVIEW | Claude làm thay Sixth. Tab dùng được bằng phím mũi tên, Home, End. Chưa lặp, để T-14 |
 | T-11 | 6 | Trang dự án, gồm case study MA26 và 3 cấp độ | Sixth | `app/work/` | Mọi link trong list mở được | TODO | |
 | T-12 | 6 | Trang About và Playground | Sixth | `app/about/`, `app/playground/` | Đúng wireframe | TODO | |
 | T-13 | 7 | Review code và giao diện bằng Playwright | Claude | Không sửa code | Có danh sách lỗi trên board | TODO | Chờ T-06 đến T-12 |
