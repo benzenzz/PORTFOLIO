@@ -12,7 +12,9 @@ Mục tiêu: creative director ở agency nước ngoài xem tay nghề của De
 | Dự án | `/work/[slug]` | Xem video tràn màn hình, vai trò, bối cảnh, video kế tiếp |
 | About | `/about` | Giới thiệu, chân dung, kỹ năng, tải CV |
 
-Contact là phần cuối của mọi trang, không tách trang riêng. Menu: `[ WORK ]`, `[ ABOUT ]`, `[ CONTACT ]`. Không làm trang đích riêng, vì người xem cần thấy tác phẩm ngay.
+Contact là phần cuối của mọi trang, không tách trang riêng. Không làm trang đích riêng, vì người xem cần thấy tác phẩm ngay.
+
+**Thanh menu:** cố định ở đầu mọi trang, luôn nhìn thấy khi cuộn. Tên Demi Phan bên trái, bên phải là `[ WORK ]`, `[ ABOUT ]`, `[ CONTACT ]`. Mục đang xem được đánh dấu đỏ. Chữ tự đảo màu để đọc được trên cả nền sáng và trên video. Trên điện thoại rút gọn thành `[ MENU ]`, chạm để mở.
 
 ## Trang Work
 
