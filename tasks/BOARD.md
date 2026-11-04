@@ -18,5 +18,6 @@ Trạng thái: `TODO`, `DOING`, `REVIEW`, `BLOCKED`, `DONE`. Luật xem `PIPELIN
 | T-12 | 6 | Trang About và Playground | Sixth | `app/about/`, `app/playground/` | Đúng wireframe | REVIEW | Claude làm thay Sixth. Chưa có ảnh Photowalk nên hiện ô giữ chỗ. Quan điểm, câu bio 3, How I work chờ Demi |
 | T-13 | 7 | Review code và giao diện bằng Playwright | Claude | Không sửa code | Có danh sách lỗi trên board | TODO | Claude đã tự QA lúc làm thay Sixth: 4 khổ màn hình, bàn phím, dialog, reduced-motion, link, ảnh, video. Chưa có người khác review |
 | T-14 | 7 | Motion: list lặp, Lenis, hiệu ứng cuộn, reduced-motion | Claude | `components/`, `lib/` | Đúng spec | DOING | Xong hero: loader, Lenis, con trỏ khung ngắm, parallax, wipe, scramble, chữ né chuột, halftone. Thêm section giới thiệu trước Selected Work theo curtisdesignr.me. Còn Selected Work, case study, About, Playground, Contact, chuyển trang |
+| T-15 | 7 | Phase 1 trang chủ mới: cảnh đồng cỏ, khối cube D-E-M-I, vệt khói, trời sao, sao băng | Claude | `lib/meadow-scene.ts`, `components/meadow-lab.tsx`, `app/lab/` | Demi ưng cảnh ở `/lab`, chạy mượt trên laptop và điện thoại | REVIEW | Kế hoạch ở `docs/06-home-rebuild-plan.md`. Chưa đo được độ mượt trên máy thật |
 
 Task bước 8 và 9 sẽ được thêm sau.
