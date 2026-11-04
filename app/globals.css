@@ -10,8 +10,20 @@
   --color-gray: #6f6f6f;
   --color-gray-dark: #b8b8b8;
   --color-dim: #8c8c8c;
-  --color-line: rgba(16, 16, 16, 0.16);
-  --color-line-dark: rgba(255, 255, 255, 0.2);
+  --color-mist: #e5e4e2;
+  --color-plum: #3a0f34;
+  --color-gold: #eaaa00;
+
+  /* Màu theo nền, đặt giá trị ở .surface-dark và .surface-light */
+  --color-surface: var(--surface);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-fg-dim: var(--fg-dim);
+  --color-accent: var(--accent);
+  --color-on-accent: var(--on-accent);
+  --color-selected: var(--selected);
+  --color-on-selected: var(--on-selected);
+  --color-line: var(--line);
 
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --dur-fast: 180ms;
@@ -30,7 +42,15 @@
 
 @layer base {
   :root {
-    color-scheme: light;
+    color-scheme: dark;
+    scroll-padding-top: 5rem;
+    --surface: #101010;
+    --fg: #f5f4f0;
+    --focus: #ff343b;
+  }
+
+  html:has(dialog[open]) {
+    overflow: hidden;
   }
 
   * {
@@ -42,8 +62,8 @@
   }
 
   body {
-    background-color: var(--color-paper);
-    color: var(--color-ink);
+    background-color: var(--surface);
+    color: var(--fg);
     font-family: var(--font-sans);
     font-size: clamp(1rem, 0.95rem + 0.2vw, 1.125rem);
     line-height: 1.5;
@@ -68,7 +88,7 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-red);
+    outline: 2px solid var(--focus);
     outline-offset: 3px;
   }
 
@@ -80,6 +100,38 @@
 }
 
 @layer components {
+  /* Nền tối: đen, trắng, đỏ */
+  .surface-dark {
+    --surface: #101010;
+    --fg: #f5f4f0;
+    --fg-muted: #b8b8b8;
+    --fg-dim: #8c8c8c;
+    --accent: #ff343b;
+    --on-accent: #101010;
+    --selected: transparent;
+    --on-selected: #ff343b;
+    --line: rgba(255, 255, 255, 0.2);
+    --focus: #ff343b;
+    background-color: var(--surface);
+    color: var(--fg);
+  }
+
+  /* Nền sáng: xám, tím, vàng. Vàng chỉ làm mảng nền có chữ tím, trên xám chỉ đạt 1.6:1 */
+  .surface-light {
+    --surface: #e5e4e2;
+    --fg: #3a0f34;
+    --fg-muted: #5f5a5e;
+    --fg-dim: #7a7478;
+    --accent: #eaaa00;
+    --on-accent: #3a0f34;
+    --selected: #eaaa00;
+    --on-selected: #3a0f34;
+    --line: rgba(58, 15, 52, 0.16);
+    --focus: #3a0f34;
+    background-color: var(--surface);
+    color: var(--fg);
+  }
+
   /* Khung nội dung chung: lề ngang 16px mobile, 32px desktop */
   .shell {
     width: 100%;
