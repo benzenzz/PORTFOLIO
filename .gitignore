@@ -1,0 +1,12 @@
+node_modules/
+.next/
+.env*
+
+# Media gốc và tài liệu cá nhân không đưa lên git
+reference/
+Moodboard/
+FIRST EVENT 2025/
+MARKETING ARENA 2026/
+*.docx
+*.mpeg
+Portrait.png

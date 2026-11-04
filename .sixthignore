@@ -1,0 +1,9 @@
+node_modules/
+.next/
+reference/
+content-raw/
+FIRST EVENT 2025/
+MARKETING ARENA 2026/
+*.docx
+*.mp4
+*.mpeg
