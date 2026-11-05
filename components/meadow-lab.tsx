@@ -22,9 +22,11 @@ export function MeadowLab() {
     import("@/lib/meadow-scene")
       .then(({ autoQuality, createMeadow }) => {
         if (cancelled || !canvas.current) return;
-        const asked = new URLSearchParams(location.search).get("q");
+        const params = new URLSearchParams(location.search);
+        const asked = params.get("q");
         const quality = asked === "low" || asked === "high" ? asked : autoQuality();
-        const meadow = createMeadow(canvas.current, quality, !prefersReducedMotion());
+        const look = params.get("look") === "night" ? "night" : "paper";
+        const meadow = createMeadow(canvas.current, quality, !prefersReducedMotion(), look);
         const trigger = ScrollTrigger.create({
           trigger: "#meadow-lab",
           start: "top top",
@@ -53,7 +55,7 @@ export function MeadowLab() {
       <div className="fixed inset-0 bg-[linear-gradient(#12040f,#3a0f34_62%,#7a5fa8)]">
         {!failed && <canvas ref={canvas} aria-hidden="true" className="block h-full w-full" />}
       </div>
-      <p className="fixed bottom-6 left-6 z-10 font-mono text-sm text-[#e5e4e2]">
+      <p className="fixed bottom-6 left-6 z-10 font-mono text-sm text-[#e5e4e2] mix-blend-difference">
         {STOPS[stop].letter} — {STOPS[stop].word}
       </p>
     </div>

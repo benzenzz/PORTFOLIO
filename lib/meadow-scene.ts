@@ -34,6 +34,7 @@ import { Reflector } from "three/addons/objects/Reflector.js";
 ColorManagement.enabled = false;
 
 export type Quality = "high" | "low";
+export type Look = "night" | "paper";
 
 const COUNTS = {
   high: { grass: 60000, cubes: 18000, stars: 2600, embers: 90, smoke: 320, dpr: 1.75, terrain: 240, water: 512 },
@@ -53,6 +54,9 @@ const COLOR = {
   lilac: new Color("#d9bcf5"),
   mist: new Color("#f3ecf7"),
   gold: new Color("#eaaa00"),
+  ink: new Color("#16060f"),
+  plum: new Color("#3a0f34"),
+  paper: new Color("#e5e4e2"),
 };
 
 // Đất và mặt nước đặt lệch về phía xa để phủ hết tầm nhìn của camera.
@@ -242,6 +246,80 @@ function createGround(q: Quality) {
   const mesh = new Mesh(geometry, material);
   mesh.position.z = CENTER_Z;
   return { mesh, material };
+}
+
+/** Lớp hậu kỳ: threshold nhiều mức tông, shutter blur ngang từng mảng, quầng vàng ở nơi tối gặp sáng. */
+function createThreshold(q: Quality, look: Look, width: number, height: number) {
+  const target = new WebGLRenderTarget(width, height, { samples: q === "high" ? 4 : 0 });
+  const material = new ShaderMaterial({
+    depthTest: false,
+    depthWrite: false,
+    defines: { TAPS: q === "high" ? 8 : 5 },
+    uniforms: {
+      uScene: { value: target.texture },
+      uTime: { value: 0 },
+      uPaperLook: { value: look === "paper" ? 1 : 0 },
+      uInk: { value: COLOR.ink },
+      uPlum: { value: COLOR.plum },
+      uPaper: { value: COLOR.paper },
+      uGold: { value: COLOR.gold },
+    },
+    vertexShader: /* glsl */ `
+      varying vec2 vUv;
+      void main(){vUv=uv;gl_Position=vec4(position.xy,0.,1.);}`,
+    fragmentShader: /* glsl */ `
+      uniform sampler2D uScene;
+      uniform float uTime,uPaperLook;
+      uniform vec3 uInk,uPlum,uPaper,uGold;
+      varying vec2 vUv;
+      ${NOISE_GLSL}
+      float luma(vec2 uv){return dot(texture2D(uScene,uv).rgb,vec3(.299,.587,.114));}
+      float smear(vec2 uv,vec2 reach){
+        // Lệch mỗi điểm ảnh một chút để vệt mịn như phơi sáng, không thành răng lược.
+        float jitter=hash(uv*917.)-.5;
+        float sum=0.;
+        for(int i=-TAPS;i<=TAPS;i++)sum+=luma(uv+(float(i)+jitter)/float(TAPS)*reach);
+        return sum/float(2*TAPS+1);
+      }
+      void main(){
+        // Chỉ một số mảng bị kéo vệt, mạnh dần ra hai mép khung hình.
+        float patches=smoothstep(.46,.72,fbm(vUv*vec2(1.8,7.)+vec2(uTime*.015,0.)));
+        float sides=smoothstep(.2,.5,abs(vUv.x-.5));
+        float reach=.0015+.022*max(patches*.8,sides*patches+sides*.25);
+        float v=smear(vUv,vec2(reach,0.));
+        float wide=(smear(vUv,vec2(.03,0.))+smear(vUv,vec2(0.,.05)))*.5;
+
+        vec3 c;
+        float light;
+        if(uPaperLook>.5){
+          // Trời sáng, mây xám nhạt, đá và chữ tối như mảng mực trên giấy.
+          light=smoothstep(.075,.1,v)*(1.-smoothstep(.37,.4,v));
+          c=mix(uInk,uPaper,smoothstep(.075,.1,v));
+          c=mix(c,uPaper*.83,smoothstep(.2,.3,v));
+          c=mix(c,uPlum,smoothstep(.37,.4,v));
+          c=mix(c,uInk,smoothstep(.46,.5,v));
+        }else{
+          // Giữ đêm: bốn mức tông để vẫn đọc được mây, đá, cỏ.
+          light=1.-smoothstep(.29,.32,v);
+          c=mix(uInk,uPlum*.75,smoothstep(.09,.11,v));
+          c=mix(c,uPlum*1.5,smoothstep(.155,.175,v));
+          c=mix(c,uPaper*.62,smoothstep(.29,.32,v));
+          c=mix(c,uPaper,smoothstep(.46,.5,v));
+        }
+        // Vàng chỉ nằm sát mép giữa hai mảng tông, và chỉ ở vài đoạn.
+        float rim=smoothstep(.05,.2,abs(wide-v))*light;
+        float scatter=smoothstep(.44,.66,fbm(vUv*vec2(3.,4.)+vec2(0.,uTime*.02)));
+        float glow=rim*scatter;
+        c=mix(c,mix(uGold,vec3(.93,.42,.05),glow),glow*.9);
+        gl_FragColor=vec4(c,1.);
+      }`,
+  });
+  const scene = new Scene();
+  const quad = new Mesh(new PlaneGeometry(2, 2), material);
+  quad.frustumCulled = false;
+  scene.add(quad);
+  const camera = new OrthographicCamera(-1, 1, 1, -1, 0, 1);
+  return { target, material, scene, camera, quad };
 }
 
 /** Sông phản chiếu thật bằng Reflector của three, gợn sóng bằng cách lệch tọa độ soi. */
@@ -704,7 +782,7 @@ function pointerOnLetter(camera: Camera, ndc: Vector2, letter: Mesh, out: Vector
   return out.multiplyScalar(-origin.z / out.z).add(origin);
 }
 
-export function createMeadow(canvas: HTMLCanvasElement, quality: Quality, animate: boolean) {
+export function createMeadow(canvas: HTMLCanvasElement, quality: Quality, animate: boolean, look: Look) {
   const renderer = new WebGLRenderer({ canvas, antialias: quality === "high", powerPreference: "high-performance" });
   renderer.outputColorSpace = LinearSRGBColorSpace;
   let dpr = Math.min(devicePixelRatio, COUNTS[quality].dpr);
@@ -723,6 +801,7 @@ export function createMeadow(canvas: HTMLCanvasElement, quality: Quality, animat
   const stars = createStars(quality, rand, dpr);
   const embers = createEmbers(quality, rand, dpr);
   const smoke = createSmoke(quality, canvas.clientWidth / Math.max(canvas.clientHeight, 1));
+  const threshold = createThreshold(quality, look, canvas.width, canvas.height);
   scene.add(sky.mesh, ground.mesh, water.mesh, rocks.mesh, grass.mesh, letters.mesh, stars.points, embers.points, smoke.mesh);
 
   // Bóng dưới nước không cần cỏ và khói, bỏ đi cho nhẹ.
@@ -733,7 +812,7 @@ export function createMeadow(canvas: HTMLCanvasElement, quality: Quality, animat
     grass.mesh.visible = smoke.mesh.visible = true;
   };
 
-  const timed = [sky.material, water.material, grass.material, letters.material, stars.material, embers.material, smoke.feedback];
+  const timed = [threshold.material, sky.material, water.material, grass.material, letters.material, stars.material, embers.material, smoke.feedback];
   const pointer = { target: new Vector2(), smooth: new Vector2(), prevUv: new Vector2(), uv: new Vector2(), on: 0, onTarget: 0 };
   const world = new Vector3();
   const origin = new Vector3();
@@ -768,6 +847,7 @@ export function createMeadow(canvas: HTMLCanvasElement, quality: Quality, animat
     camera.updateProjectionMatrix();
     letters.mesh.scale.setScalar(Math.min(1, camera.aspect / 0.8));
     smoke.resize(camera.aspect);
+    threshold.target.setSize(canvas.width, canvas.height);
   }
 
   const onMove = (event: PointerEvent) => {
@@ -842,7 +922,10 @@ export function createMeadow(canvas: HTMLCanvasElement, quality: Quality, animat
     smoke.step(renderer);
     letters.material.uniforms.uSmoke.value = smoke.overlay.uniforms.uSmoke.value;
 
+    renderer.setRenderTarget(threshold.target);
     renderer.render(scene, camera);
+    renderer.setRenderTarget(null);
+    renderer.render(threshold.scene, threshold.camera);
   }
 
   resize();
@@ -908,6 +991,9 @@ export function createMeadow(canvas: HTMLCanvasElement, quality: Quality, animat
       letters.parts.forEach((part) => part.dispose());
       smoke.feedback.dispose();
       water.mesh.dispose();
+      threshold.target.dispose();
+      threshold.material.dispose();
+      threshold.quad.geometry.dispose();
       smoke.quad.geometry.dispose();
       smoke.dispose();
       renderer.dispose();
