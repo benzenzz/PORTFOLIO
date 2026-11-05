@@ -487,6 +487,13 @@
 }
 
 /* Ngoài layer để thắng utility: difference trên đỏ ra xanh ngọc, nút đỏ thì mất trên nền đỏ. */
+/* Chữ kể chuyện nóng lên theo chuột, --heat do meadow-lab đặt theo từng ký tự */
+.story-char {
+  --heat: 0;
+  -webkit-text-fill-color: color-mix(in srgb, currentColor, #ff7a1a calc(var(--heat) * 100%));
+  text-shadow: 0 0 calc(var(--heat) * 22px) color-mix(in srgb, #ea5a0a calc(var(--heat) * 80%), transparent);
+}
+
 html.on-red header {
   mix-blend-mode: normal;
 }

@@ -60,7 +60,7 @@ export default function RootLayout({
       <head>
         <script dangerouslySetInnerHTML={{ __html: introScript }} />
       </head>
-      <body>
+      <body suppressHydrationWarning>
         <SmoothScroll />
         <Cursor />
         <Nav />

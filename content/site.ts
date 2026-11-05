@@ -9,7 +9,7 @@ export const contact = {
 
 /** Bốn nhịp kể chuyện trên cảnh 3D, mỗi nhịp đi với một chữ D, E, M, I. */
 export const story = [
-  { lead: "Where the wildest ideas become interfaces people remember,", notes: ["I build more than a website."] },
+  { lead: "Where the *wildest* ideas become \ninterfaces people remember.", notes: [] },
   { lead: "I create digital experiences where technology and creativity speak the same language.", notes: [] },
   { lead: "I turn code into feeling, motion into meaning, and interaction into memory.", notes: [] },
   {
@@ -21,6 +21,27 @@ export const story = [
     ],
   },
 ];
+
+/** Chữ tạm chép từ emotion-agency.com theo yêu cầu của Demi. Phải viết lại trước khi lên trang chính. */
+export const gateIntro = {
+  label: "What we do",
+  lead: "We design and engineer digital products for ambitious teams — from launch sites to full-scale SaaS platforms. We start with why, then design and build the rest",
+  action: { label: "More about us", href: "/about" },
+  list: [
+    "Marketing Websites",
+    "Landing Pages & Launches",
+    "Brand Identity Systems",
+    "Product UX & Design",
+    "Web Applications",
+    "Mobile Applications",
+    "E-commerce Platforms",
+    "SaaS Dashboards",
+    "Custom Motion & Animation",
+    "3D & Interactive Experiences",
+    "Design Systems",
+    "AI-Driven Interfaces",
+  ],
+};
 
 export const hero = {
   name: "Demi Phan",

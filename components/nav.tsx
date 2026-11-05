@@ -12,7 +12,7 @@ const links = [
 ];
 
 const contactClass =
-  "nav-contact label pointer-events-auto bg-red px-3 py-2 text-ink transition-opacity duration-[var(--dur-fast)] hover:opacity-80 focus-visible:outline-paper";
+  "nav-contact label pointer-events-auto bg-gold px-3 py-2 text-ink transition-opacity duration-[var(--dur-fast)] hover:opacity-80 focus-visible:outline-paper";
 
 const scrambleLabel = (event: PointerEvent<HTMLElement>) => {
   const label = event.currentTarget.querySelector<HTMLElement>("[data-scramble]");
@@ -32,7 +32,7 @@ export function Nav() {
         Skip to content
       </a>
 
-      {/* Lớp blend phải tách khỏi nút CONTACT: chữ đảo màu theo nền, nút thì không */}
+      {/* Lớp blend phải tách khỏi nút HIRE ME: chữ đảo màu theo nền, nút thì không */}
       <header className="pointer-events-none fixed inset-x-0 top-0 z-40 mix-blend-difference">
         <nav aria-label="Main" className="shell flex items-center justify-between py-4 text-white">
           <Link href="/" className="pointer-events-auto text-sm font-bold uppercase">
@@ -62,9 +62,9 @@ export function Nav() {
             >
               <span aria-hidden="true">■ </span>Menu
             </button>
-            {/* Giữ chỗ đúng bằng nút CONTACT ở lớp bên dưới */}
+            {/* Giữ chỗ đúng bằng nút HIRE ME ở lớp bên dưới */}
             <span aria-hidden="true" className="label invisible px-3 py-2">
-              Contact
+              Hire me
             </span>
           </div>
         </nav>
@@ -72,7 +72,7 @@ export function Nav() {
 
       <div className="shell pointer-events-none fixed inset-x-0 top-0 z-40 flex justify-end py-4">
         <a href="#contact" className={contactClass}>
-          Contact
+          Hire me
         </a>
       </div>
 
@@ -109,9 +109,9 @@ export function Nav() {
               <a
                 href="#contact"
                 onClick={() => menu.current?.close()}
-                className="display-xl block font-bold tracking-[-0.03em] text-red"
+                className="display-xl block font-bold tracking-[-0.03em] text-gold"
               >
-                Contact
+                Hire me
               </a>
             </li>
           </ul>
