@@ -7,6 +7,21 @@ export const contact = {
   details: "Based in Ho Chi Minh City (GMT+7) · Open to remote · Available from Dec 2026",
 };
 
+/** Bốn nhịp kể chuyện trên cảnh 3D, mỗi nhịp đi với một chữ D, E, M, I. */
+export const story = [
+  { lead: "Where the wildest ideas become interfaces people remember,", notes: ["I build more than a website."] },
+  { lead: "I create digital experiences where technology and creativity speak the same language.", notes: [] },
+  { lead: "I turn code into feeling, motion into meaning, and interaction into memory.", notes: [] },
+  {
+    label: "Design",
+    lead: "Beauty with a purpose",
+    notes: [
+      "Every pixel has a reason. I design to solve real problems and create value.",
+      "I start with why, then design and build the rest.",
+    ],
+  },
+];
+
 export const hero = {
   name: "Demi Phan",
   label: "Creative · Video Editor · Motion",

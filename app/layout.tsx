@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Chivo_Mono, Inter_Tight } from "next/font/google";
+import { Chivo_Mono, Instrument_Serif, Inter_Tight } from "next/font/google";
 import { Contact } from "@/components/contact";
 import { Cursor } from "@/components/cursor";
 import { Nav } from "@/components/nav";
@@ -18,6 +18,14 @@ const chivoMono = Chivo_Mono({
   subsets: ["latin"],
   weight: ["400", "500"],
   variable: "--font-chivo-mono",
+  display: "swap",
+});
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+  variable: "--font-instrument-serif",
   display: "swap",
 });
 
@@ -48,7 +56,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${interTight.variable} ${chivoMono.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${interTight.variable} ${chivoMono.variable} ${instrumentSerif.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: introScript }} />
       </head>

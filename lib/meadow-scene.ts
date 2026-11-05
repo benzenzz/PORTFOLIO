@@ -1,5 +1,6 @@
 import {
   AdditiveBlending,
+  Blending,
   BoxGeometry,
   BufferAttribute,
   BufferGeometry,
@@ -15,6 +16,7 @@ import {
   MeshBasicMaterial,
   MathUtils,
   Mesh,
+  NormalBlending,
   Object3D,
   OrthographicCamera,
   PerspectiveCamera,
@@ -496,7 +498,7 @@ function createGrass(q: Quality, rand: () => number) {
 }
 
 /** Khối cube biến thành D, E, M, I. uMorph chạy từ 0 đến 3. */
-function createLetters(q: Quality, rand: () => number) {
+function createLetters(q: Quality, rand: () => number, blending: Blending) {
   const { cubes } = COUNTS[q];
   const box = new BoxGeometry(1, 1, 1);
   const geometry = new InstancedBufferGeometry();
@@ -512,90 +514,91 @@ function createLetters(q: Quality, rand: () => number) {
   geometry.setAttribute("aRnd", new InstancedBufferAttribute(random, 4));
   geometry.instanceCount = cubes;
 
+  // Hai lớp dùng chung uniforms: khối chữ đi qua threshold, hạt vàng vẽ sau để giữ màu.
+  const uniforms = {
+    uTime: { value: 0 },
+    uMorph: { value: 0 },
+    uOrigin: { value: new Vector3() },
+    uBlastT: { value: 0 },
+    uBlastOn: { value: 0 },
+    uDark: { value: COLOR.violet },
+    uLight: { value: COLOR.lilac },
+    uWhite: { value: COLOR.mist },
+    uGold: { value: COLOR.gold },
+  };
+  const vertexShader = /* glsl */ `
+    attribute vec3 aT0,aT1,aT2,aT3;
+    attribute vec4 aRnd;
+    uniform float uTime,uMorph,uBlastT,uBlastOn;
+    uniform vec3 uOrigin;
+    varying float vShade,vRnd,vCore;
+    vec3 spin(vec3 v,vec3 k,float a){float c=cos(a),s=sin(a);return v*c+cross(k,v)*s+k*dot(k,v)*(1.-c);}
+    void main(){
+      float m=clamp(uMorph,0.,3.),i=floor(m),f=m-i;
+      float t=smoothstep(aRnd.x*.42,aRnd.x*.42+.58,f);
+      vec3 a=i<.5?aT0:i<1.5?aT1:i<2.5?aT2:aT3;
+      vec3 b=i<.5?aT1:i<1.5?aT2:aT3;
+      vec3 c=mix(a,b,t);
+      c+=(aRnd.yzw-.5)*sin(t*3.1416)*2.8;
+      c+=vec3(sin(uTime*.5+aRnd.x*30.),cos(uTime*.42+aRnd.y*30.),sin(uTime*.36+aRnd.z*30.))*.012;
+      vCore=1.-smoothstep(.2,1.5,length(c.xy));
+
+      // Nổ lan từ điểm chuột chạm, cube nào bị sóng đi qua thì thành hạt và không quay lại.
+      float wave=length(c.xy-uOrigin.xy)/3.4+aRnd.x*.14;
+      float age=max(uBlastT-wave,0.);
+      float blasted=smoothstep(0.,.06,age)*uBlastOn;
+      vec3 dir=normalize(aRnd.xyz-.5+normalize(c-uOrigin+1e-3)*.7);
+      vec3 drift=vec3(sin(uTime*.3+aRnd.y*40.),sin(uTime*.23+aRnd.z*40.),cos(uTime*.27+aRnd.w*40.))*.3;
+      c=mix(c,c+dir*(1.+aRnd.w*2.1)*(1.-exp(-age*1.7))+drift,blasted);
+
+      vec3 axis=normalize(aRnd.xyz-.5+1e-3);
+      float angle=uTime*(.2+aRnd.w*(.5+blasted*5.))+aRnd.y*6.28;
+      vec3 n=spin(normal,axis,angle);
+      #ifdef GLITTER
+        float size=step(.002,blasted)*(.01+aRnd.z*.016);
+      #else
+        float size=(1.-step(.002,blasted))*(.022+aRnd.z*.02);
+      #endif
+      vec3 p=spin(position,axis,angle)*size;
+      vShade=.5+.5*dot(n,normalize(vec3(.35,.8,.5)));
+      vRnd=aRnd.x;
+      gl_Position=projectionMatrix*modelViewMatrix*vec4(c+p,1.);
+    }`;
+
   const material = new ShaderMaterial({
-    uniforms: {
-      uTime: { value: 0 },
-      uMorph: { value: 0 },
-      uPointer: { value: new Vector3() },
-      uPointerOn: { value: 0 },
-      uHole: { value: new Vector3() },
-      uHoleOn: { value: 0 },
-      uDrag: { value: new Vector2() },
-      uBurst: { value: 0 },
-      uSmoke: { value: null },
-      uDark: { value: COLOR.violet },
-      uLight: { value: COLOR.lilac },
-      uWhite: { value: COLOR.mist },
-      uGold: { value: COLOR.gold },
-    },
-    vertexShader: /* glsl */ `
-      attribute vec3 aT0,aT1,aT2,aT3;
-      attribute vec4 aRnd;
-      uniform float uTime,uMorph,uPointerOn,uHoleOn,uBurst;
-      uniform vec3 uPointer,uHole;
-      uniform vec2 uDrag;
-      uniform sampler2D uSmoke;
-      varying float vHeat,vShade,vRnd,vCore;
-      vec3 spin(vec3 v,vec3 k,float a){float c=cos(a),s=sin(a);return v*c+cross(k,v)*s+k*dot(k,v)*(1.-c);}
-      void main(){
-        float m=clamp(uMorph,0.,3.),i=floor(m),f=m-i;
-        float t=smoothstep(aRnd.x*.42,aRnd.x*.42+.58,f);
-        vec3 a=i<.5?aT0:i<1.5?aT1:i<2.5?aT2:aT3;
-        vec3 b=i<.5?aT1:i<1.5?aT2:aT3;
-        vec3 c=mix(a,b,t);
-        c+=(aRnd.yzw-.5)*sin(t*3.1416)*2.8;
-        c+=vec3(sin(uTime*.5+aRnd.x*30.),cos(uTime*.42+aRnd.y*30.),sin(uTime*.36+aRnd.z*30.))*.012;
-
-        vCore=1.-smoothstep(.2,1.5,length(c.xy));
-
-        // Vùng sáng rộng quanh chuột, kéo cả khối lệch theo hướng chuột.
-        vec2 glow=c.xy-uPointer.xy;
-        float g=exp(-dot(glow,glow)/.5)*uPointerOn;
-        c.xy+=uDrag*g*.16;
-
-        // Lỗ thủng đi trễ sau chuột, mép răng cưa nhờ mỗi cube có ngưỡng khác nhau.
-        vec2 away=c.xy-uHole.xy;
-        float k=exp(-dot(away,away)/.1)*uHoleOn*(.65+aRnd.y*.7);
-        c.xy+=normalize(away+1e-4)*k*.7;
-        c.z+=(aRnd.w-.5)*k*1.3;
-
-        // Lướt nhanh thì khoảng 40% cube co thành bụi và tung ra quanh chữ.
-        float dust=step(aRnd.w,.4)*uBurst;
-        c+=normalize(vec3(c.xy,0.)+(aRnd.xyz-.5)*1.7)*dust*(.3+aRnd.x*1.5);
-
-        // Vệt chuột đi qua đâu thì cube ở đó xáo trộn, rồi tự về chỗ khi vệt tan.
-        vec4 clip=projectionMatrix*modelViewMatrix*vec4(c,1.);
-        float trail=texture2D(uSmoke,clip.xy/clip.w*.5+.5).r;
-        c+=(aRnd.yzw-.5)*trail*.9;
-        vHeat=max(g,trail*.7);
-
-        vec3 axis=normalize(aRnd.xyz-.5+1e-3);
-        float angle=uTime*(.2+aRnd.w*.5)+aRnd.y*6.28+k*3.;
-        vec3 n=spin(normal,axis,angle);
-        vec3 p=spin(position,axis,angle)*(.022+aRnd.z*.02)*(1.-dust*.7);
-        vShade=.5+.5*dot(n,normalize(vec3(.35,.8,.5)));
-        vRnd=aRnd.x;
-        gl_Position=projectionMatrix*modelViewMatrix*vec4(c+p,1.);
-      }`,
+    uniforms,
+    vertexShader,
     fragmentShader: /* glsl */ `
-      uniform float uTime;
-      uniform vec3 uDark,uLight,uWhite,uGold;
-      varying float vHeat,vShade,vRnd,vCore;
+      uniform vec3 uDark,uLight,uWhite;
+      varying float vShade,vRnd,vCore;
       void main(){
         vec3 c=mix(uDark*(.7+vShade*.5),uLight,vCore*.75);
         c=mix(c,uWhite,step(.82,fract(vRnd*7.))*(.45+vShade*.5));
-        // Vùng chuột sáng trắng, vài cube trong đó cháy vàng.
-        float zone=smoothstep(.15,.7,vHeat);
-        c=mix(c,uWhite*(.82+vShade*.18),zone);
-        c=mix(c,uGold*(1.+vShade*.4),zone*step(.8,fract(vRnd*13.)));
-        float spark=step(.98,vRnd)*(.5+.5*sin(uTime*3.+vRnd*200.));
-        gl_FragColor=vec4(c+uGold*spark*.8,1.);
+        gl_FragColor=vec4(c,1.);
+      }`,
+  });
+  const glitterMaterial = new ShaderMaterial({
+    defines: { GLITTER: 1 },
+    transparent: true,
+    depthWrite: false,
+    blending,
+    uniforms,
+    vertexShader,
+    fragmentShader: /* glsl */ `
+      uniform float uTime;
+      uniform vec3 uGold,uWhite;
+      varying float vShade,vRnd;
+      void main(){
+        float twinkle=pow(.5+.5*sin(uTime*(3.+vRnd*7.)+vRnd*80.),6.);
+        vec3 c=mix(uGold,uWhite,twinkle*.8)*(.75+vShade*.6+twinkle*1.4);
+        gl_FragColor=vec4(c,.6+twinkle*.4);
       }`,
   });
   const mesh = new Mesh(geometry, material);
-  mesh.frustumCulled = false;
+  const glitter = new Mesh(geometry, glitterMaterial);
+  mesh.frustumCulled = glitter.frustumCulled = false;
   mesh.position.copy(LETTER_ANCHOR);
-  return { mesh, material, parts: [box] };
+  return { mesh, glitter, material, glitterMaterial, parts: [box] };
 }
 
 function pointsGeometry(count: number, fill: (i: number, p: Float32Array, s: Float32Array) => void) {
@@ -647,7 +650,7 @@ function createStars(q: Quality, rand: () => number, dpr: number) {
   return { points, material };
 }
 
-function createEmbers(q: Quality, rand: () => number, dpr: number) {
+function createEmbers(q: Quality, rand: () => number, dpr: number, blending: Blending) {
   const geometry = pointsGeometry(COUNTS[q].embers, (i, p, s) => {
     const z = -2 - rand() * 24;
     p.set([(rand() - 0.5) * (8 + Math.abs(z) * 1.5), rand() * 3, z], i * 3);
@@ -656,7 +659,7 @@ function createEmbers(q: Quality, rand: () => number, dpr: number) {
   const material = new ShaderMaterial({
     transparent: true,
     depthWrite: false,
-    blending: AdditiveBlending,
+    blending,
     uniforms: { uTime: { value: 0 }, uDpr: { value: dpr }, uGold: { value: COLOR.gold } },
     vertexShader: /* glsl */ `
       attribute vec2 aSeed;
@@ -677,7 +680,7 @@ function createEmbers(q: Quality, rand: () => number, dpr: number) {
       varying float vLight;
       void main(){
         float a=smoothstep(.5,0.,length(gl_PointCoord-.5));
-        gl_FragColor=vec4(uGold*a*a*vLight*.9,1.);
+        gl_FragColor=vec4(uGold,a*a*vLight);
       }`,
   });
   const points = new Points(geometry, material);
@@ -687,7 +690,7 @@ function createEmbers(q: Quality, rand: () => number, dpr: number) {
 }
 
 /** Vệt khói: vẽ lên một texture nhỏ, mỗi khung hình trôi và phai đi một chút. */
-function createSmoke(q: Quality, aspect: number) {
+function createSmoke(q: Quality, aspect: number, blending: Blending, tint: Color) {
   const height = COUNTS[q].smoke;
   const make = () => new WebGLRenderTarget(Math.round(height * aspect), height, { depthBuffer: false });
   let targets = [make(), make()];
@@ -737,8 +740,8 @@ function createSmoke(q: Quality, aspect: number) {
     transparent: true,
     depthTest: false,
     depthWrite: false,
-    blending: AdditiveBlending,
-    uniforms: { uSmoke: { value: null }, uTint: { value: COLOR.mist } },
+    blending,
+    uniforms: { uSmoke: { value: null }, uTint: { value: tint } },
     vertexShader: feedback.vertexShader,
     fragmentShader: /* glsl */ `
       uniform sampler2D uSmoke;
@@ -746,7 +749,7 @@ function createSmoke(q: Quality, aspect: number) {
       varying vec2 vUv;
       void main(){
         float a=texture2D(uSmoke,vUv).r;
-        gl_FragColor=vec4(uTint*a*.6,1.);
+        gl_FragColor=vec4(uTint,a*.42);
       }`,
   });
   const mesh = new Mesh(new PlaneGeometry(2, 2), overlay);
@@ -797,26 +800,35 @@ export function createMeadow(canvas: HTMLCanvasElement, quality: Quality, animat
   const water = createWater(quality);
   const rocks = createRocks(rand);
   const grass = createGrass(quality, rand);
-  const letters = createLetters(quality, rand);
+  const blending = look === "night" ? AdditiveBlending : NormalBlending;
+  const letters = createLetters(quality, rand, blending);
   const stars = createStars(quality, rand, dpr);
-  const embers = createEmbers(quality, rand, dpr);
-  const smoke = createSmoke(quality, canvas.clientWidth / Math.max(canvas.clientHeight, 1));
+  const embers = createEmbers(quality, rand, dpr, blending);
+  const smoke = createSmoke(
+    quality,
+    canvas.clientWidth / Math.max(canvas.clientHeight, 1),
+    blending,
+    look === "night" ? COLOR.mist : COLOR.plum,
+  );
   const threshold = createThreshold(quality, look, canvas.width, canvas.height);
-  scene.add(sky.mesh, ground.mesh, water.mesh, rocks.mesh, grass.mesh, letters.mesh, stars.points, embers.points, smoke.mesh);
+  scene.add(sky.mesh, ground.mesh, water.mesh, rocks.mesh, grass.mesh, letters.mesh, stars.points);
+  // Khói và vàng vẽ sau threshold, nếu không sẽ bị ép thành mảng xám và viền vòng tròn.
+  const overlay = new Scene();
+  overlay.add(smoke.mesh, letters.glitter, embers.points);
 
-  // Bóng dưới nước không cần cỏ và khói, bỏ đi cho nhẹ.
+  // Bóng dưới nước không cần cỏ, bỏ đi cho nhẹ.
   const renderMirror = water.mesh.onBeforeRender;
   water.mesh.onBeforeRender = function (...args) {
-    grass.mesh.visible = smoke.mesh.visible = false;
+    grass.mesh.visible = false;
     renderMirror.apply(this, args);
-    grass.mesh.visible = smoke.mesh.visible = true;
+    grass.mesh.visible = true;
   };
 
   const timed = [threshold.material, sky.material, water.material, grass.material, letters.material, stars.material, embers.material, smoke.feedback];
   const pointer = { target: new Vector2(), smooth: new Vector2(), prevUv: new Vector2(), uv: new Vector2(), on: 0, onTarget: 0 };
   const world = new Vector3();
   const origin = new Vector3();
-  const hole = { position: new Vector3(), last: new Vector3(), speed: 0, burst: 0 };
+  const blast = { live: false, start: 0, amount: 0 };
   const shot = { ...SHOTS[0] };
   let morph = 0;
 
@@ -846,6 +858,8 @@ export function createMeadow(canvas: HTMLCanvasElement, quality: Quality, animat
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
     letters.mesh.scale.setScalar(Math.min(1, camera.aspect / 0.8));
+    letters.mesh.position.y = LETTER_ANCHOR.y - (camera.aspect < 1 ? 0.6 : 0); // Màn dọc: chừa chỗ cho chữ kể chuyện phía trên.
+    letters.glitter.scale.copy(letters.mesh.scale);
     smoke.resize(camera.aspect);
     threshold.target.setSize(canvas.width, canvas.height);
   }
@@ -884,23 +898,24 @@ export function createMeadow(canvas: HTMLCanvasElement, quality: Quality, animat
     // Chữ quay theo một phần để vẫn đọc được ở mọi góc máy.
     letters.mesh.rotation.y = shot.angle * 0.6 + Math.sin(now * 0.22) * 0.08 + pointer.smooth.x * 0.12;
     letters.mesh.updateMatrixWorld();
+    letters.glitter.position.copy(letters.mesh.position);
+    letters.glitter.rotation.copy(letters.mesh.rotation);
+
+    // Chuột chạm chữ thì nổ, giữ nguyên dạng hạt cho tới khi cuộn sang chữ khác.
     const uniforms = letters.material.uniforms;
-    const here = pointerOnLetter(camera, pointer.smooth, letters.mesh, world, origin);
-    uniforms.uPointer.value.copy(here);
-    uniforms.uPointerOn.value = pointer.on;
-
-    const velocity = uniforms.uDrag.value.set(here.x - hole.last.x, here.y - hole.last.y).divideScalar(Math.max(delta, 0.008));
-    hole.last.copy(here);
-    hole.position.lerp(here, 1 - Math.exp(-delta * 3.5));
-    hole.speed += (Math.min(velocity.length() / 2.2, 1) - hole.speed) * (1 - Math.exp(-delta * 5));
-    uniforms.uHole.value.copy(hole.position);
-    uniforms.uHoleOn.value = hole.speed * pointer.on;
-    velocity.clampLength(0, 3);
-
-    const overLetter = here.length() < 1.7 && pointer.on > 0.5;
-    if (overLetter && hole.speed > 0.45) hole.burst = Math.min(hole.burst + delta * 4, 1);
-    hole.burst *= Math.exp(-delta * 1.2);
-    uniforms.uBurst.value = hole.burst;
+    const settled = Math.abs(morph - Math.round(morph)) < 0.01;
+    if (!settled) blast.live = false;
+    if (settled && !blast.live && pointer.onTarget) {
+      const here = pointerOnLetter(camera, pointer.target, letters.mesh, world, origin);
+      if (Math.abs(here.x) < 1.15 && Math.abs(here.y) < 1.2) {
+        blast.live = true;
+        blast.start = now;
+        uniforms.uOrigin.value.copy(here);
+      }
+    }
+    blast.amount += (Number(blast.live) - blast.amount) * (1 - Math.exp(-delta * (blast.live ? 40 : 5)));
+    if (blast.live) uniforms.uBlastT.value = now - blast.start;
+    uniforms.uBlastOn.value = blast.amount;
 
     if (now > nextMeteor) {
       launchMeteor(0, now);
@@ -920,12 +935,15 @@ export function createMeadow(canvas: HTMLCanvasElement, quality: Quality, animat
     f.uStrength.value = Math.min(moved * 45, 0.75) * pointer.on;
     f.uDecay.value = Math.pow(0.968, delta * 60);
     smoke.step(renderer);
-    letters.material.uniforms.uSmoke.value = smoke.overlay.uniforms.uSmoke.value;
 
     renderer.setRenderTarget(threshold.target);
     renderer.render(scene, camera);
     renderer.setRenderTarget(null);
     renderer.render(threshold.scene, threshold.camera);
+    renderer.autoClear = false;
+    renderer.clearDepth();
+    renderer.render(overlay, camera);
+    renderer.autoClear = true;
   }
 
   resize();
@@ -983,11 +1001,13 @@ export function createMeadow(canvas: HTMLCanvasElement, quality: Quality, animat
       removeEventListener("pointerup", onLift);
       removeEventListener("pointercancel", onLeave);
       document.documentElement.removeEventListener("pointerleave", onLeave);
-      scene.traverse((node) => {
-        const object = node as Mesh;
-        object.geometry?.dispose();
-        (object.material as ShaderMaterial | undefined)?.dispose();
-      });
+      [scene, overlay].forEach((root) =>
+        root.traverse((node) => {
+          const object = node as Mesh;
+          object.geometry?.dispose();
+          (object.material as ShaderMaterial | undefined)?.dispose();
+        }),
+      );
       letters.parts.forEach((part) => part.dispose());
       smoke.feedback.dispose();
       water.mesh.dispose();
