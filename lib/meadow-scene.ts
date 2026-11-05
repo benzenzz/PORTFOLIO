@@ -129,6 +129,16 @@ float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);
 float fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<4;i++){v+=a*noise(p);p*=2.03;a*=.5;}return v;}
 `;
 
+/** Dải màu lửa: 0 là cam cháy, giữa là vàng thương hiệu, 1 là kem nóng. */
+const FIRE_GLSL = /* glsl */ `
+vec3 fire(float t){
+  vec3 c=mix(vec3(.55,.09,.02),vec3(.93,.33,.03),smoothstep(0.,.33,t));
+  c=mix(c,vec3(.92,.67,0.),smoothstep(.3,.58,t));
+  c=mix(c,vec3(1.,.86,.48),smoothstep(.55,.82,t));
+  return mix(c,vec3(1.,.97,.87),smoothstep(.82,1.,t));
+}
+`;
+
 function valueNoise(x: number, z: number) {
   const ix = Math.floor(x);
   const iz = Math.floor(z);
@@ -264,7 +274,6 @@ function createThreshold(q: Quality, look: Look, width: number, height: number) 
       uInk: { value: COLOR.ink },
       uPlum: { value: COLOR.plum },
       uPaper: { value: COLOR.paper },
-      uGold: { value: COLOR.gold },
     },
     vertexShader: /* glsl */ `
       varying vec2 vUv;
@@ -272,9 +281,10 @@ function createThreshold(q: Quality, look: Look, width: number, height: number) 
     fragmentShader: /* glsl */ `
       uniform sampler2D uScene;
       uniform float uTime,uPaperLook;
-      uniform vec3 uInk,uPlum,uPaper,uGold;
+      uniform vec3 uInk,uPlum,uPaper;
       varying vec2 vUv;
       ${NOISE_GLSL}
+      ${FIRE_GLSL}
       float luma(vec2 uv){return dot(texture2D(uScene,uv).rgb,vec3(.299,.587,.114));}
       float smear(vec2 uv,vec2 reach){
         // Lệch mỗi điểm ảnh một chút để vệt mịn như phơi sáng, không thành răng lược.
@@ -289,7 +299,7 @@ function createThreshold(q: Quality, look: Look, width: number, height: number) 
         float sides=smoothstep(.2,.5,abs(vUv.x-.5));
         float reach=.0015+.022*max(patches*.8,sides*patches+sides*.25);
         float v=smear(vUv,vec2(reach,0.));
-        float wide=(smear(vUv,vec2(.03,0.))+smear(vUv,vec2(0.,.05)))*.5;
+        float wide=(smear(vUv,vec2(.045,0.))+smear(vUv,vec2(0.,.07)))*.5;
 
         vec3 c;
         float light;
@@ -309,10 +319,10 @@ function createThreshold(q: Quality, look: Look, width: number, height: number) 
           c=mix(c,uPaper,smoothstep(.46,.5,v));
         }
         // Vàng chỉ nằm sát mép giữa hai mảng tông, và chỉ ở vài đoạn.
-        float rim=smoothstep(.05,.2,abs(wide-v))*light;
-        float scatter=smoothstep(.44,.66,fbm(vUv*vec2(3.,4.)+vec2(0.,uTime*.02)));
+        float rim=smoothstep(.02,.22,abs(wide-v))*light;
+        float scatter=smoothstep(.4,.62,fbm(vUv*vec2(3.,4.)+vec2(0.,uTime*.02)));
         float glow=rim*scatter;
-        c=mix(c,mix(uGold,vec3(.93,.42,.05),glow),glow*.9);
+        c=mix(c,fire(glow*.95),smoothstep(0.,.3,glow));
         gl_FragColor=vec4(c,1.);
       }`,
   });
@@ -524,7 +534,6 @@ function createLetters(q: Quality, rand: () => number, blending: Blending) {
     uDark: { value: COLOR.violet },
     uLight: { value: COLOR.lilac },
     uWhite: { value: COLOR.mist },
-    uGold: { value: COLOR.gold },
   };
   const vertexShader = /* glsl */ `
     attribute vec3 aT0,aT1,aT2,aT3;
@@ -569,12 +578,15 @@ function createLetters(q: Quality, rand: () => number, blending: Blending) {
     uniforms,
     vertexShader,
     fragmentShader: /* glsl */ `
+      uniform float uTime;
       uniform vec3 uDark,uLight,uWhite;
       varying float vShade,vRnd,vCore;
+      ${FIRE_GLSL}
       void main(){
         vec3 c=mix(uDark*(.7+vShade*.5),uLight,vCore*.75);
         c=mix(c,uWhite,step(.82,fract(vRnd*7.))*(.45+vShade*.5));
-        gl_FragColor=vec4(c,1.);
+        float spark=step(.975,vRnd)*(.55+.45*sin(uTime*3.+vRnd*200.));
+        gl_FragColor=vec4(mix(c,fire(fract(vRnd*31.)*.8+.1),spark),1.);
       }`,
   });
   const glitterMaterial = new ShaderMaterial({
@@ -586,12 +598,12 @@ function createLetters(q: Quality, rand: () => number, blending: Blending) {
     vertexShader,
     fragmentShader: /* glsl */ `
       uniform float uTime;
-      uniform vec3 uGold,uWhite;
       varying float vShade,vRnd;
+      ${FIRE_GLSL}
       void main(){
         float twinkle=pow(.5+.5*sin(uTime*(3.+vRnd*7.)+vRnd*80.),6.);
-        vec3 c=mix(uGold,uWhite,twinkle*.8)*(.75+vShade*.6+twinkle*1.4);
-        gl_FragColor=vec4(c,.6+twinkle*.4);
+        vec3 c=fire(fract(vRnd*17.)*.72+twinkle*.28)*(.8+vShade*.5+twinkle*.9);
+        gl_FragColor=vec4(c,.65+twinkle*.35);
       }`,
   });
   const mesh = new Mesh(geometry, material);
@@ -660,12 +672,13 @@ function createEmbers(q: Quality, rand: () => number, dpr: number, blending: Ble
     transparent: true,
     depthWrite: false,
     blending,
-    uniforms: { uTime: { value: 0 }, uDpr: { value: dpr }, uGold: { value: COLOR.gold } },
+    uniforms: { uTime: { value: 0 }, uDpr: { value: dpr } },
     vertexShader: /* glsl */ `
       attribute vec2 aSeed;
       uniform float uTime,uDpr;
-      varying float vLight;
+      varying float vLight,vHeat;
       void main(){
+        vHeat=aSeed.x;
         vec3 p=position;
         float life=fract(p.y/3.+uTime*(.018+aSeed.x*.03));
         p.y=life*3.2;
@@ -676,11 +689,11 @@ function createEmbers(q: Quality, rand: () => number, dpr: number, blending: Ble
         gl_Position=projectionMatrix*view;
       }`,
     fragmentShader: /* glsl */ `
-      uniform vec3 uGold;
-      varying float vLight;
+      varying float vLight,vHeat;
+      ${FIRE_GLSL}
       void main(){
         float a=smoothstep(.5,0.,length(gl_PointCoord-.5));
-        gl_FragColor=vec4(uGold,a*a*vLight);
+        gl_FragColor=vec4(fire(vHeat*.6+a*.4),a*a*vLight);
       }`,
   });
   const points = new Points(geometry, material);
@@ -811,10 +824,10 @@ export function createMeadow(canvas: HTMLCanvasElement, quality: Quality, animat
     look === "night" ? COLOR.mist : COLOR.plum,
   );
   const threshold = createThreshold(quality, look, canvas.width, canvas.height);
-  scene.add(sky.mesh, ground.mesh, water.mesh, rocks.mesh, grass.mesh, letters.mesh, stars.points);
-  // Khói và vàng vẽ sau threshold, nếu không sẽ bị ép thành mảng xám và viền vòng tròn.
+  scene.add(sky.mesh, ground.mesh, water.mesh, rocks.mesh, grass.mesh, stars.points);
+  // Chữ, khói và lửa vẽ sau threshold để giữ nguyên nét và màu, chỉ phong cảnh đi qua hậu kỳ.
   const overlay = new Scene();
-  overlay.add(smoke.mesh, letters.glitter, embers.points);
+  overlay.add(letters.mesh, smoke.mesh, letters.glitter, embers.points);
 
   // Bóng dưới nước không cần cỏ, bỏ đi cho nhẹ.
   const renderMirror = water.mesh.onBeforeRender;
