@@ -15,6 +15,9 @@ if (typeof window !== "undefined") {
 
 export { gsap, ScrollTrigger, SplitText, useGSAP };
 
+// Instrument Serif chỉ có weight 400; để mặc định h1/h2 là 700 thì trình duyệt tự làm đậm giả và chữ bị bè.
+export const SERIF = "font-[family-name:var(--font-instrument-serif)] font-normal tracking-[-0.01em]";
+
 export const INTRO_SEEN_KEY = "demi-intro-seen";
 
 export const prefersReducedMotion = () =>
