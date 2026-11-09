@@ -517,3 +517,262 @@ html.on-red .nav-contact {
     scroll-behavior: auto !important;
   }
 }
+
+/* Ô kỹ năng: lớp ngoài là viền, ::before cắt cùng hình và lùi vào 1px để giữ viền trên các góc vát. */
+.skill-slot {
+  width: 30%;
+}
+
+.skill-tile {
+  --cut: clamp(7px, 0.9vw, 12px);
+  position: relative;
+  display: flex;
+  aspect-ratio: 8 / 5;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: clamp(0.5rem, 0.9vw, 0.85rem);
+  background: #6d3364;
+  color: var(--color-mist);
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%,
+    0 100%,
+    0 74%,
+    var(--cut) calc(74% - var(--cut)),
+    var(--cut) calc(32% + var(--cut)),
+    0 32%
+  );
+  transition: color 180ms var(--ease-out);
+}
+
+.skill-tile::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  background: var(--color-plum);
+  clip-path: inherit;
+  transition: background-color 180ms var(--ease-out);
+}
+
+.skill-tile > svg {
+  position: relative;
+  align-self: flex-start;
+  margin-left: var(--cut);
+}
+
+.skill-tile:hover {
+  color: #16060f;
+}
+
+.skill-tile:hover::before {
+  background: var(--color-gold);
+}
+
+@media (min-width: 768px) {
+  /* Bàn cờ hai cột mỗi bên, chừa cột giữa cho chữ; kích thước theo cả vh để màn thấp không chồng ô. */
+  .skill-board {
+    position: absolute;
+    inset: 15vh 3vw 9vh;
+    display: grid;
+    grid-template-columns: repeat(2, auto) 1fr repeat(2, auto);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 0;
+    width: auto;
+    margin: 0;
+    pointer-events: none;
+  }
+
+  .skill-slot {
+    width: min(13vw, 26vh);
+    place-self: center;
+    pointer-events: auto;
+  }
+
+  .skill-slot:nth-child(1) { grid-area: 1 / 1; }
+  .skill-slot:nth-child(2) { grid-area: 2 / 2; }
+  .skill-slot:nth-child(3) { grid-area: 3 / 1; }
+  .skill-slot:nth-child(4) { grid-area: 4 / 2; }
+  .skill-slot:nth-child(5) { grid-area: 1 / 5; }
+  .skill-slot:nth-child(6) { grid-area: 2 / 4; }
+  .skill-slot:nth-child(7) { grid-area: 3 / 5; }
+}
+
+/* JS mới bật ray cuộn, nên hỏng animation thì list vẫn hiện đủ theo dòng chảy thường. */
+.is-rail {
+  height: 260vh;
+}
+
+.is-rail [data-rail-panel] {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.is-rail [data-rail-list] {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: 3rem;
+  align-self: auto;
+}
+
+.is-rail [data-arrow] {
+  display: block;
+  opacity: 0;
+}
+
+/* Dải project. Mặc định tự vuốt ngang; JS bật is-shelf thì cuộn dọc điều khiển dải. */
+.shelf-panel {
+  overflow-x: auto;
+}
+
+.is-shelf .shelf-panel {
+  height: 100vh;
+  overflow: clip;
+}
+
+.shelf-track {
+  display: flex;
+  width: max-content;
+  min-height: 100vh;
+  gap: clamp(2rem, 6vw, 7rem);
+  padding: 13vh clamp(1.5rem, 3vw, 3rem) 0;
+}
+
+.shelf-intro {
+  display: flex;
+  width: min(62vw, 110vh);
+  flex-shrink: 0;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: 13vh;
+}
+
+.shelf-arrow {
+  display: inline-block;
+  animation: shelf-point 2s cubic-bezier(0.65, 0, 0.35, 1) infinite alternate;
+}
+
+@keyframes shelf-point {
+  from { transform: translateX(-0.08em); }
+  to { transform: translateX(0.22em); }
+}
+
+/* Bốn nhịp cao thấp lặp lại, giữ chất lệch của lưới emotion nhưng chạy theo chiều ngang. */
+.shelf-card {
+  --h: 58vh;
+  --top: 0vh;
+  flex-shrink: 0;
+  margin-top: var(--top);
+  width: min(calc(var(--h) * 0.81), 78vw);
+}
+
+.shelf-card:nth-child(4n + 3) { --h: 42vh; --top: 30vh; }
+.shelf-card:nth-child(4n) { --h: 52vh; --top: 8vh; }
+.shelf-card:nth-child(4n + 1) { --h: 38vh; --top: 34vh; }
+
+.shelf-frame {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 0.81;
+  background: var(--color-plum);
+}
+
+/* Trên cảm ứng không có hover nên tên và scope luôn hiện dưới ảnh. */
+.shelf-spec {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 0.3rem;
+  padding: 1rem;
+  background: rgb(22 6 15 / 0.76);
+  color: var(--color-mist);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 500;
+  line-height: 1.25;
+  opacity: 0;
+  text-transform: uppercase;
+  transition: opacity var(--dur-fast) var(--ease-out);
+}
+
+.shelf-spec > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  text-align: right;
+}
+
+.group:is(:hover, :focus-visible) .shelf-spec {
+  opacity: 1;
+}
+
+.shelf-end {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  padding: 0 12vw 13vh 4vw;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shelf-arrow {
+    animation: none;
+  }
+}
+
+/* Gallery /projects */
+.gallery-headline {
+  animation: gallery-rise 0.5s cubic-bezier(0.19, 1, 0.22, 1) both;
+}
+
+@keyframes gallery-rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+}
+
+.gallery-tick {
+  position: relative;
+  width: 0.5rem;
+  height: 1rem;
+}
+
+/* Vùng bấm cao hơn vạch để dùng được trên cảm ứng. */
+.gallery-tick::before {
+  content: "";
+  position: absolute;
+  inset: -0.9rem 0;
+}
+
+.gallery-tick::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 50%;
+  width: 1px;
+  background: rgb(255 255 255 / 0.55);
+  transition: background-color 0.15s;
+}
+
+.gallery-tick:hover::after {
+  background: #fff;
+}
+
+.gallery-tick[aria-current]::after {
+  inset: 0 -0.05rem;
+  width: auto;
+  border: 1px solid var(--tick);
+  border-radius: 0.2rem;
+  background: none;
+}
+
+.gallery-tick:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
